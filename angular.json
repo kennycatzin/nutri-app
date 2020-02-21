@@ -115,6 +115,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "temperp-app"
+    }
+  },
+  "defaultProject": "temperp-app",
+  "cli": {
+    "analytics": "8bc05c2f-945a-4799-98c3-6900b1947421"
+  }
 }

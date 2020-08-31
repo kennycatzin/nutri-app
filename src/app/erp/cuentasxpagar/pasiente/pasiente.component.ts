@@ -49,6 +49,7 @@ export class PasienteComponent implements OnInit {
   }
   nuevo() {
     this.pasiente = new Pasiente('', '', '', '', 0, '', '');
+    return true;
   }
   actulizar(pasiente: Pasiente) {
     console.log(pasiente);
@@ -101,7 +102,7 @@ busqueda(termino: string) {
   });
 }
 cambiarDesde(numero: number) {
-  let desde = this.desde + numero;
+  const desde = this.desde + numero;
   if (desde >= this.totalRegistros) {
     return;
   }
@@ -111,6 +112,7 @@ cambiarDesde(numero: number) {
   this.desde += numero;
   this.traerDatos();
 }
+
  calcularEdad(fecha) {
   const hoy = new Date();
   const cumpleanos = new Date(fecha);

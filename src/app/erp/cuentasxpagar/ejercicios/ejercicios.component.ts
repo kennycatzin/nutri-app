@@ -25,7 +25,7 @@ export class EjerciciosComponent implements OnInit {
     this.traerDatos();
   }
   getClaisificaciones() {
-    this.clasificacionService.getClasificacionAlimentacion()
+    this.clasificacionService.getClasificacionMuscular()
     .subscribe( (data: any) => {
     this.clasificaciones = data.data;
     });
@@ -79,6 +79,7 @@ guardarCatalogo(f: NgForm) {
       this.traerDatos();
     });
   }
+  this.nuevo();
 }
 traerDatos() {
   this.cargando = true;
@@ -102,7 +103,7 @@ traerDatos() {
   });
 }
 cambiarDesde(numero: number) {
-  let desde = this.desde + numero;
+  const desde = this.desde + numero;
   if (desde >= this.totalRegistros) {
     return;
   }
@@ -111,5 +112,14 @@ cambiarDesde(numero: number) {
   }
   this.desde += numero;
   this.traerDatos();
+}
+listadoImg(ejercicio: Ejercicio) {
+  console.log('hello');
+}
+borrarImagen() {
+  console.log('borrando imagen');
+}
+guardarImagen(ejercicio: Ejercicio) {
+  console.log(ejercicio);
 }
 }

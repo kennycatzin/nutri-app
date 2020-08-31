@@ -12,4 +12,7 @@ export class PerfilComponent implements OnInit {
   ngOnInit() {
   }
 
+  nuevo() {
+    return true;
+  }
 }

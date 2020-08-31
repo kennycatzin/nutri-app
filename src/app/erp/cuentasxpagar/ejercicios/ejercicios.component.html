@@ -50,7 +50,11 @@
                                 <td>{{i+1}}</td>
                                 <td>{{obj.nombre}}</td>
                                 <td>{{obj.clasificacion}}</td>
-                                <td class="text-center"><a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a> <a (click)="borrar(obj)"><i class="fas fa-trash-alt"></i></a> </td>
+                                <td class="row justify-content-around">
+                                    <a data-toggle="modal" data-target="#imglist" (click)="listadoImg(obj)"><i class="fas fa-image text-primary"></i></a>
+                                    <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a>
+                                    <a (click)="borrar(obj)"><i class="fas fa-trash-alt text-danger"></i></a>
+                                </td>
                             </tr>
 
 
@@ -103,6 +107,47 @@
                     <button type="submit" class="btn btn-info">Guardar</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imglist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Listado de imágenes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarImagen(f)">
+                        <div class="form-group row text-center">
+                            <input [(ngModel)]="ejercicio.imagen" name="imagen" type="file">
+                            <button class="btn btn-secondary"><i class="fas fa-save text-info"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="card col-md-6">
+                        <img class="card-img-top" src="https://eresfitness.com/wp-content/uploads/2019/05/Curl-de-biceps.gif" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <!-- <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                            <a (click)="borrarImagen()" class="btn btn-secondary"><i class="fas fa-trash-alt text-danger"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
+            </div>
+
         </div>
     </div>
 </div>

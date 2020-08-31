@@ -1,3 +1,3 @@
 const PROD = 'https://nutri-server.herokuapp.com';
-const LOCAL = 'http://localhost:8080/nutricion-server/public';
+const LOCAL = 'http://192.168.64.4/nutri-server/public';
 export const URL_SERVICIOS = LOCAL;

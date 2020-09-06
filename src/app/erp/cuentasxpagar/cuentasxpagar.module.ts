@@ -16,6 +16,8 @@ import { PasienteComponent } from './pasiente/pasiente.component';
 import { AlimentosComponent } from './alimentos/alimentos.component';
 import { EjerciciosComponent } from './ejercicios/ejercicios.component';
 import { PerfilComponent } from './pasiente/perfil.component';
+import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
+
 
 
 
@@ -32,6 +34,7 @@ import { PerfilComponent } from './pasiente/perfil.component';
     AlimentosComponent,
     EjerciciosComponent,
     PerfilComponent,
+    SesionesComponent,
 
   ],
   imports: [

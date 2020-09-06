@@ -44,8 +44,12 @@ export class EjercicioService {
       }));
     }
     busqueda( nombre: string ) {
-      let url = URL_SERVICIOS + '/api/ejercicios/busqueda/' + nombre;
-      return this.http.get(url)
-              .pipe(map((resp: any) => resp.data));
+      let url = URL_SERVICIOS + '/api/ejercicios/busqueda';
+
+      const busqueda = { busqueda: nombre };
+      return this.http.post( url, busqueda )
+      .pipe(map( (resp: any) => {
+        return resp.data;
+      }));
     }
 }

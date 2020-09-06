@@ -9,6 +9,7 @@ import { PasienteComponent } from './pasiente/pasiente.component';
 import { AlimentosComponent } from './alimentos/alimentos.component';
 import { EjerciciosComponent } from './ejercicios/ejercicios.component';
 import { PerfilComponent } from './pasiente/perfil.component';
+import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
 const cuentasRoutes: Routes = [
     {
         path: '',
@@ -23,6 +24,7 @@ const cuentasRoutes: Routes = [
             { path: 'ejercicio', component: EjerciciosComponent },
             { path: 'pasiente', component: PasienteComponent },
             { path: 'perfil/:id', component: PerfilComponent },
+            { path: 'sesion', component: SesionesComponent },
 
             { path: '', redirectTo: '/login', pathMatch: 'full'},
 

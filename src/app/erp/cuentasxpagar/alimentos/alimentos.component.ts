@@ -95,7 +95,6 @@ clasificaciones: Clasificacion;
       console.log(this.objeto);
       this.totalRegistros = data.numero;
       this.cargando = false;
-      console.log(data.numero);
     });
   }
   busqueda(termino: string) {

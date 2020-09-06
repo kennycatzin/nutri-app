@@ -1,11 +1,11 @@
 <div class="row page-titles">
     <div class="col-12 row">
         <div class="col-6 text-left">
-            <h3 class="text-themecolor">Módulo de </h3>
+            <h3 class="text-themecolor">Perfil del paciente</h3>
         </div>
         <div class="col-6 text-right">
-            <button (click)="nuevo()" type="button" class="btn btn-danger align-self-auto" data-toggle="modal" data-target="#exampleModal">
-                Agregar pasiente
+            <button (click)="nuevo()" type="button" class="btn btn-info align-self-auto" data-toggle="modal" data-target="#exampleModal">
+                Sesión nueva
                 <i class="fas fa-play-circle"></i>     
         </button>
         </div>
@@ -13,9 +13,15 @@
 </div>
 <div class="col-12 row">
     <div class="col-6">
-        <div class="card mb-3">
-            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQCMB_PVPqWOfIFT7bKtR86rkt4urlZ5QfzWXuYkfemdf6mXve9" alt="Card image cap">
-            <div class="card-body">
+        <div class="card mb-3 align-items-center">
+            <div class="col-8">
+                <img class="card-img-top" src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png" alt="Card image cap">
+            </div>
+            <div class="card-body text-center">
+
+                <h5 class="card-title">Kenny de Jesus Catzin Ruiz</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Ingeniero en sistemas</h6>
+
                 <div class="col-12 row">
                     <div class="col-6 text-center">
                         <a href="#">
@@ -71,21 +77,21 @@
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td><span class="label label-danger">20 - Enero - 2019 </span> </td>
-                                    <td><span class="label label-success">97 kg</span></td>
-                                    <td><a href="#"><i class="fas fa-eye"></i></a>
+                                    <td><span class="label label-light-primary">20 - Enero - 2019 </span> </td>
+                                    <td><span class="label label-light-success">97 kg</span></td>
+                                    <td><a [routerLink]="['/sesion']"><i class="fas fa-eye"></i></a>
                                 </tr>
                                 <tr>
                                     <td>2</td>
 
-                                    <td><span class="label label-danger">20 - Enero - 2019 </span> </td>
-                                    <td><span class="label label-success">97 kg</span></td>
+                                    <td><span class="label label-light-primary">20 - Enero - 2019 </span> </td>
+                                    <td><span class="label label-light-success">97 kg</span></td>
                                     <td><a href="#"><i class="fas fa-eye"></i></a>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td><span class="label label-danger">20 - Enero - 2019 </span> </td>
-                                    <td><span class="label label-success">97 kg</span></td>
+                                    <td><span class="label label-light-primary">20 - Enero - 2019 </span> </td>
+                                    <td><span class="label label-light-success">97 kg</span></td>
                                     <td><a href="#"><i class="fas fa-eye"></i></a>
                                 </tr>
 

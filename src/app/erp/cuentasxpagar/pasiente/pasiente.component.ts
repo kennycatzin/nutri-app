@@ -14,7 +14,7 @@ export class PasienteComponent implements OnInit {
 
   constructor(public pasienteService: PasienteService,
               public clasificacionService: ClasificacionService) { }
- pasiente: Pasiente = new Pasiente('', '', '', '',  0, '', '');
+ pasiente: Pasiente = new Pasiente('', '', '', '', '',  0, '', '', '');
     cargando = false;
     desde = 0;
     objeto: any[];
@@ -48,7 +48,7 @@ export class PasienteComponent implements OnInit {
     });
   }
   nuevo() {
-    this.pasiente = new Pasiente('', '', '', '', 0, '', '');
+    this.pasiente = new Pasiente('', '', '', '', '', 0, '', '', '');
     return true;
   }
   actulizar(pasiente: Pasiente) {

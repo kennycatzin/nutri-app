@@ -16,6 +16,11 @@ export class SidebarService {
       url: '/alimento'
     },
     {
+      titulo: 'Recetas',
+      icono: 'mdi mdi-book',
+      url: '/receta'
+    },
+    {
       titulo: 'Ejercicios',
       icono: 'mdi mdi-swim',
       url: '/ejercicio'

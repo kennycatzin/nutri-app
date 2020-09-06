@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 
 import { APP_ROUTING } from './app.routes';
 // import { CuentasxpagarModule, cuentasxpagarModule } from './erp/cuentasxpagar/cuentasxpagar.module';
-import { CuentasxpagarModule } from './erp/cuentasxpagar/cuentasxpagar.module';
+import { CuentasxpagarModule } from './pages/cuentasxpagar.module';
+
 
 import { MatTabsModule } from '@angular/material';
 

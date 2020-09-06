@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlimentoService } from 'src/app/services/alimento/alimento.service';
-import { Alimento } from './../../../models/alimento.model';
+import { AlimentoService } from '../../services/alimento/alimento.service';
+import { Alimento } from './../../models/alimento.model';
 import { NgForm } from '@angular/forms';
-import { Clasificacion } from '../../../models/clasificacion.model';
-import { ClasificacionService } from '../../../services/clasificacion/clasificacion.service';
+import { Clasificacion } from '../../models/clasificacion.model';
+import { ClasificacionService } from '../../services/clasificacion/clasificacion.service';
 import swal from 'sweetalert2';
 
 
@@ -53,7 +53,7 @@ clasificaciones: Clasificacion;
       }
     });
   }
-  nuevo(){
+  nuevo() {
     this.alimento = new Alimento('', '', '', '', '');
 
   }
@@ -108,7 +108,7 @@ clasificaciones: Clasificacion;
     });
   }
   cambiarDesde(numero: number) {
-    let desde = this.desde + numero;
+    const desde = this.desde + numero;
     if (desde >= this.totalRegistros) {
       return;
     }

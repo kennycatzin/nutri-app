@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { EjercicioService } from 'src/app/services/ejercicio/ejercicio.service';
-import { Ejercicio } from './../../../models/ejercicio.model';
+import { PasienteService } from '../../services/pasiente/pasiente.service';
+import { Pasiente } from './../../models/pasiente.model';
 import { NgForm } from '@angular/forms';
-import { Clasificacion } from '../../../models/clasificacion.model';
-import { ClasificacionService } from '../../../services/clasificacion/clasificacion.service';
+import { Clasificacion } from '../../models/clasificacion.model';
+import { ClasificacionService } from '../../services/clasificacion/clasificacion.service';
 import swal from 'sweetalert2';
 @Component({
-  selector: 'app-ejercicios',
-  templateUrl: './ejercicios.component.html',
-  styleUrls: ['./ejercicios.component.css']
+  selector: 'app-pasiente',
+  templateUrl: './pasiente.component.html',
+  styleUrls: ['./pasiente.component.css']
 })
-export class EjerciciosComponent implements OnInit {
+export class PasienteComponent implements OnInit {
 
-  constructor(public ejercicioService: EjercicioService,
+  constructor(public pasienteService: PasienteService,
               public clasificacionService: ClasificacionService) { }
-    ejercicio: Ejercicio = new Ejercicio('', 0, '');
+ pasiente: Pasiente = new Pasiente('', '', '', '', '',  0, '', '', '');
     cargando = false;
     desde = 0;
     objeto: any[];
@@ -25,13 +25,12 @@ export class EjerciciosComponent implements OnInit {
     this.traerDatos();
   }
   getClaisificaciones() {
-    this.clasificacionService.getClasificacionMuscular()
+    this.clasificacionService.getClasificacionAlimentacion()
     .subscribe( (data: any) => {
     this.clasificaciones = data.data;
     });
   }
-
-  borrar(ejercicio: Ejercicio) {
+  borrar(pasiente: Pasiente) {
     swal.fire({
       title: '¿Desea confirmar?',
       text: 'Se eliminará este registro permanentemente',
@@ -41,7 +40,7 @@ export class EjerciciosComponent implements OnInit {
       confirmButtonText: 'Si, Eliminar'
     }).then((result) => {
       if (result.value) {
-       this.ejercicioService.borrar(ejercicio.id)
+       this.pasienteService.borrar(pasiente.id)
          .subscribe(resp => {
            this.traerDatos();
          });
@@ -49,11 +48,12 @@ export class EjerciciosComponent implements OnInit {
     });
   }
   nuevo() {
-    this.ejercicio = new Ejercicio('', 0, '');
+    this.pasiente = new Pasiente('', '', '', '', '', 0, '', '', '');
+    return true;
   }
-  actulizar(ejercicio: Ejercicio) {
-    console.log(ejercicio);
-    this.ejercicio = ejercicio;
+  actulizar(pasiente: Pasiente) {
+    console.log(pasiente);
+    this.pasiente = pasiente;
     // this.alimentoService.actualizar(this.alimento.id, this.alimento)
     // .subscribe( objeto => {
     //   console.log(objeto);
@@ -65,25 +65,24 @@ guardarCatalogo(f: NgForm) {
   if ( f.invalid ) {
     return;
   }
-  console.log(this.ejercicio);
-  if (this.ejercicio.id) {
-    this.ejercicioService.actualizar(this.ejercicio.id, this.ejercicio)
+  console.log(this.pasiente);
+  if (this.pasiente.id) {
+    this.pasienteService.actualizar(this.pasiente.id, this.pasiente)
     .subscribe( objeto => {
       console.log(objeto);
       this.traerDatos();
     });
   } else {
-    this.ejercicioService.crearElemento( this.ejercicio )
+    this.pasienteService.crearPasientes( this.pasiente )
     .subscribe( objeto => {
       console.log(objeto);
       this.traerDatos();
     });
   }
-  this.nuevo();
 }
 traerDatos() {
   this.cargando = true;
-  this.ejercicioService.getElementoPaginacion(this.desde)
+  this.pasienteService.getPasientesPaginacion(this.desde)
   .subscribe( (data: any) => {
     console.log(data);
     this.objeto = data.data;
@@ -92,14 +91,14 @@ traerDatos() {
     this.cargando = false;
   });
 }
- busqueda(termino: string) {
+busqueda(termino: string) {
   if (termino === '') {
     this.traerDatos();
     return;
   }
-  this.ejercicioService.busqueda(termino)
-        .subscribe((alimento: Ejercicio[]) => {
-          this.objeto = alimento;
+  this.pasienteService.busqueda(termino)
+        .subscribe((pasiente: Pasiente[]) => {
+          this.objeto = pasiente;
   });
 }
 cambiarDesde(numero: number) {
@@ -113,13 +112,17 @@ cambiarDesde(numero: number) {
   this.desde += numero;
   this.traerDatos();
 }
-listadoImg(ejercicio: Ejercicio) {
-  console.log('hello');
-}
-borrarImagen() {
-  console.log('borrando imagen');
-}
-guardarImagen(ejercicio: Ejercicio) {
-  console.log(ejercicio);
+
+ calcularEdad(fecha) {
+  const hoy = new Date();
+  const cumpleanos = new Date(fecha);
+  let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+  const m = hoy.getMonth() - cumpleanos.getMonth();
+
+  if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+      edad--;
+  }
+
+  return edad;
 }
 }

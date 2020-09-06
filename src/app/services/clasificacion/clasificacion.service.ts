@@ -18,19 +18,23 @@ export class ClasificacionService {
 
 
   getClasificacion( desde: Number = 0) {
-    let url = URL_SERVICIOS + '/api/clasificaciones?desde=' + desde;
+    const url = URL_SERVICIOS + '/api/clasificaciones?desde=' + desde;
     return this.http.get(url);
   }
   getClasificacionMuscular( desde: Number = 0) {
-    let url = URL_SERVICIOS + '/api/clasificaciones/muscular?desde=' + desde;
+    const url = URL_SERVICIOS + '/api/clasificaciones/muscular?desde=' + desde;
+    return this.http.get(url);
+  }
+  getClasificacionReceta( desde: Number = 0) {
+    const url = URL_SERVICIOS + '/api/clasificaciones/receta?desde=' + desde;
     return this.http.get(url);
   }
   getClasificacionAlimentacion( desde: Number = 0) {
-    let url = URL_SERVICIOS + '/api/clasificaciones/alimentacion?desde=' + desde;
+    const url = URL_SERVICIOS + '/api/clasificaciones/alimentacion?desde=' + desde;
     return this.http.get(url);
   }
   crearClasificacion(clasificacion: Clasificacion) {
-    let url = URL_SERVICIOS + '/api/clasificacion';
+    const url = URL_SERVICIOS + '/api/clasificacion';
     console.log(clasificacion);
     return this.http.post( url, clasificacion )
       .pipe(map( (resp: any) => {
@@ -40,7 +44,7 @@ export class ClasificacionService {
     }
 
     borrar(id: string) {
-      let url = URL_SERVICIOS + '/api/clasificacion/' + id;
+      const url = URL_SERVICIOS + '/api/clasificacion/' + id;
       return this.http.delete(url)
       .pipe(map((resp: any) => {
         swal.fire('Registro eliminado', 'El registro se ha eliminado correctamente', 'success');
@@ -48,7 +52,7 @@ export class ClasificacionService {
       }));
     }
     actualizar(id: string, clasificacion: Clasificacion) {
-      let url = URL_SERVICIOS + '/api/clasificacion' + id;
+      const url = URL_SERVICIOS + '/api/clasificacion' + id;
       return this.http.put(url, clasificacion)
       .pipe(map((resp: any) => {
         swal.fire('Registro Actualizado', 'El registro se ha actualizado correctamente', 'success');

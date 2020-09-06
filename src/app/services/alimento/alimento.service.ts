@@ -57,5 +57,9 @@ export class AlimentoService {
         return resp.data;
       }));
     }
+    getClasificacion(id: number) {
+      let url = URL_SERVICIOS + '/api/alimentos/get-clasificacion/' + id;
+      return this.http.get(url);
+    }
 }
 

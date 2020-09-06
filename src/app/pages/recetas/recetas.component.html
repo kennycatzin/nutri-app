@@ -1,0 +1,228 @@
+<div class="row page-titles">
+    <div class="col-12 row">
+        <div class="col-6 text-left">
+            <h3 class="text-themecolor">Módulo de Receta</h3>
+
+        </div>
+        <div class="col-6 text-right">
+            <button (click)="nuevo()" type="button" class="btn btn-danger align-self-auto" data-toggle="modal" data-target="#exampleModal">
+                Agregar receta
+                <i class="fas fa-utensils"></i>        
+        </button>
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="row animated fadeIn">
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="busqueda( input.value )" class="form-control" type="text" placeholder="Buscar elemento...">
+                <!-- <br>
+                <select class="form-control">
+                    <option value="">SELECCIONE UNA CLASIFICACIÔN</option>
+            
+                    <option *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.id">
+                        {{clasificacion.nombre}}
+                    </option>
+                  
+                </select> -->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="col-sm-12" *ngIf="cargando">
+    <div class="alert alert-warning text-center">
+        <strong>Cargando</strong>
+        <br>
+        <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+        <br>
+        <span>Espere por favor</span>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Catálogo de recetas</h4>
+                <div class="table-responsive">
+                    <table class="table color-table info-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 9.66%">#</th>
+                                <th>Nombre</th>
+                                <th>Dificultad</th>
+                                <th>Total calorías</th>
+
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of objeto; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{obj.nombre}}</td>
+                                <td>{{obj.dificultad}}</td>
+                                <td>{{obj.total_calorias}}</td>
+                                <td class="text-center"><a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a> <a (click)="borrar(obj)"><i class="fas fa-trash-alt"></i></a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-12 row text-center">
+                        <div class="col-6">
+                            <button (click)="cambiarDesde(-6)" class="btn btn-secondary">Anteriores</button>
+                        </div>
+                        <div class="col-6">
+                            <button (click)="cambiarDesde(6)" class="btn btn-secondary">Siguientes</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo elemento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarCatalogo(f)">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nombre</label>
+                                <input [(ngModel)]="receta.nombre" name="nombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Clasificación</label>
+                                    <select [(ngModel)]="receta.clasificacion_id" name="clasificacion_id" class="form-control">
+                                        <option value="">Seleccione una clasificación</option>
+                                        <option *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.id">
+                                            {{clasificacion.nombre}}
+                                        </option>     
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Dificultad</label>
+                                    <select [(ngModel)]="receta.dificultad" name="dificultad" id="inputState" class="form-control">
+                                        <option value="">Seleccione una dificultad</option>
+                                        <option value="FÁCIL">FÁCIL</option>
+                                        <option value="MEDIO">MEDIO</option>
+                                        <option value="DIFICIL">DIFICIL</option>                                    
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Tiempo Cocción</label>
+                                    <input [(ngModel)]="receta.tiempo_coccion" name="tiempo_coccion" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Tiempo preparación</label>
+                                    <input [(ngModel)]="receta.tiempo_preparacion" name="tiempo_preparacion" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputZip">Total calorías</label>
+                                    <input [(ngModel)]="receta.total_calorias" name="total_calorias" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Pasos</label>
+                                <textarea [(ngModel)]="receta.pasos" name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="11" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="inputCity">Cantidad</label>
+                            <input [(ngModel)]="cantidad" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputCity">Unidad</label>
+                            <select [(ngModel)]="idUnidad" name="idUnidad" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let unidad of misUnidades" [value]="unidad.id">
+                                    {{unidad.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputCity">Tipo alimento</label>
+                            <select (change)="onSelectChange($event.target.value)" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let tipo of misTiposAlimentos" [value]="tipo.id">
+                                    {{tipo.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Alimento</label>
+                            <select [(ngModel)]="idAlimento" name="idAlimento" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let alimento of misAlimentos" [value]="alimento.id">
+                                    {{alimento.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button (click)="agregarAlimento()" type="button" class="btn btn-primary mt-lg-4">
+                                <i class="fas fa-plus-circle"></i>        
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table color-table success-table">
+                            <thead>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Alimento</th>
+                                    <th>Calorias</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of miDetalle; let i = index">
+                                    <td>{{obj.cantidad}}</td>
+                                    <td>{{obj.unidad_id}}</td>
+                                    <td>{{obj.nombre}}</td>
+                                    <td>{{obj.calorias}}</td>
+                                    <td class="text-center"><a (click)="borrar(obj)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

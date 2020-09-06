@@ -3,12 +3,10 @@ import { NgModule } from '@angular/core';
 import { CuentasxpagarComponent } from './cuentasxpagar.component';
 
 import { UsuariosComponent } from './usuarios/usuarios.component';
-import { ProveedoresComponent } from './proveedores/proveedores.component';
-import { sharedModule } from '../../shared/shared.module';
+import { sharedModule } from '../shared/shared.module';
 import { CUENTAS_ROUTES } from './cuentasxpagar.routes';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import { MatTabsModule } from '@angular/material';
-import { InicioComponent } from '../../cuentasxpagar/inicio/inicio.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +15,7 @@ import { AlimentosComponent } from './alimentos/alimentos.component';
 import { EjerciciosComponent } from './ejercicios/ejercicios.component';
 import { PerfilComponent } from './pasiente/perfil.component';
 import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
+import { RecetasComponent } from './recetas/recetas.component';
 
 
 
@@ -25,9 +24,7 @@ import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
 
 @NgModule({
   declarations: [
-    InicioComponent,
     UsuariosComponent,
-    ProveedoresComponent,
     CuentasxpagarComponent,
     SolicitudComponent,
     PasienteComponent,
@@ -35,6 +32,7 @@ import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
     EjerciciosComponent,
     PerfilComponent,
     SesionesComponent,
+    RecetasComponent,
 
   ],
   imports: [
@@ -48,7 +46,6 @@ import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
   ],
   exports: [
     UsuariosComponent,
-    ProveedoresComponent,
     SolicitudComponent
   ],
   providers: [],

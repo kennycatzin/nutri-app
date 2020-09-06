@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as swal from 'sweetalert2';
 import { Usuario } from 'src/app/models/usuario.model';
-import { UsuarioService } from 'src/app/services/service.index';
+import { UsuarioService } from '../../services/service.index';
 import { Router } from '@angular/router';
 
 
@@ -22,8 +22,8 @@ export class UsuariosComponent implements OnInit {
 
   sonIguales( campo1: string, campo2: string) {
     return ( group: FormGroup ) => {
-      let pass1 = group.controls[campo1].value;
-      let pass2 = group.controls[campo2].value;
+      const pass1 = group.controls[campo1].value;
+      const pass2 = group.controls[campo2].value;
       if (pass1 === pass2) {
         return null;
       }
@@ -55,7 +55,7 @@ export class UsuariosComponent implements OnInit {
       console.log('mal');
       return;
     }
-    let usuario = new Usuario(
+    const usuario = new Usuario(
       this.forma.value.nombre,
       this.forma.value.email,
       this.forma.value.password

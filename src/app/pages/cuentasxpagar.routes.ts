@@ -21,8 +21,8 @@ const cuentasRoutes: Routes = [
             { path: 'ejercicio', component: EjerciciosComponent },
             { path: 'pasiente', component: PasienteComponent },
             { path: 'receta', component: RecetasComponent },
-            { path: 'perfil/:id', component: PerfilComponent },
-            { path: 'sesion', component: SesionesComponent },
+            { path: 'paciente/perfil/:id', component: PerfilComponent },
+            { path: 'paciente/perfil/sesion/:id/:paciente_id', component: SesionesComponent },
 
             { path: '', redirectTo: '/login', pathMatch: 'full'},
 

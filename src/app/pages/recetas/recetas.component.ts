@@ -22,12 +22,12 @@ export class RecetasComponent implements OnInit {
               public unidadService: UnidadService,
               public alimentoService: AlimentoService) { }
 miDetalle: Array<DetalleAlimento> = [];
-detalle: DetalleAlimento = new DetalleAlimento(0, 0, 0, '', 0, 0);
-receta: Receta = new Receta('', '', 0, '', 0, '', '', '', this.miDetalle);
+objetoDetalle: DetalleAlimento[] = [];
+detalle: DetalleAlimento = new DetalleAlimento(0, 0, '', 0, '', 0, 0);
+receta: Receta = new Receta('', '', 0, '', 0, '', '', '', this.objetoDetalle, 0);
 cargando = false;
 desde = 0;
 objeto: Receta[];
-objetoDetalle: DetalleAlimento[] = [];
 
 totalRegistros = 0;
 clasificaciones: Clasificacion;
@@ -41,10 +41,15 @@ misAlimentos: Alimento[];
 tipoAlimentos: Clasificacion;
 misTiposAlimentos: Clasificacion[];
 
-idAlimento = 0;
-idUnidad = 0;
-cantidad = 0;
-calorias = 0;
+idAlimento = 1;
+idUnidad = 1;
+cantidad = 1;
+calorias = 1;
+
+unidad = '';
+alimento = '';
+sumCalorias = 0;
+
 
 
   ngOnInit(): void {
@@ -54,6 +59,12 @@ calorias = 0;
     this.getUnidades();
     this.getAlimentos();
     this.getTipoAlimentos();
+  }
+  reiniciarValores() {
+    this.idAlimento = 1;
+    this.idUnidad = 1;
+    this.cantidad = 1;
+    this.calorias = 1;
   }
   getAlimentos() {
     this.alimentoService.getClasificacion(this.idAlimento)
@@ -99,10 +110,22 @@ calorias = 0;
     });
   }
   nuevo() {
-    this.receta = new Receta('', '', 0, '', 0, '', '', '', []);
+    this.receta = new Receta('', '', 0, '', 0, '', '', '', [], 0);
+    this.detalle = new DetalleAlimento(0, 0, '', 0, '', 0, 0);
+    this.objetoDetalle = [];
+    this.miDetalle = [];
+    this.reiniciarValores();
   }
   actulizar(receta: Receta) {
-    console.log(receta);
+    this.miDetalle = [];
+    this.recetaService.getInfoReceta(receta.id)
+    .subscribe( (data: any) => {
+      console.log(data);
+      this.objetoDetalle = data.data[0].alimentos;
+      this.miDetalle = this.objetoDetalle;
+      this.cargando = false;
+      console.log(this.objetoDetalle);
+    });
     this.receta = receta;
     // this.alimentoService.actualizar(this.alimento.id, this.alimento)
     // .subscribe( objeto => {
@@ -147,22 +170,83 @@ calorias = 0;
     if ( f.invalid ) {
       return;
     }
+    this.receta.alimentos = this.miDetalle;
     console.log(this.receta);
     this.recetaService.guardarReceta( this.receta )
       .subscribe( objeto => {
+        this.nuevo();
         this.traerDatos();
+        this.reiniciarValores();
     });
   }
   onSelectChange(deviceValue) {
     this.idAlimento = deviceValue;
     this.getAlimentos();
   }
-  agregarAlimento() {
-    const alimentos = new DetalleAlimento(
-                   this.cantidad, this.idUnidad, this.receta.id, '', this.idAlimento, this.calorias, 0
-    );
-    this.miDetalle.push(alimentos);
-    this.objetoDetalle = this.miDetalle;
-    console.log(this.miDetalle);
+  showID(id: number) {
+    this.alimentoService.getShowID(id)
+      .subscribe((data: any) => {
+        console.log('aqui');
+        console.log(data.data.nombre);
+        this.alimento = data.data.nombre;
+        this.sumCalorias = data.data.calorias;
+        this.getUnidad();
+      });
   }
+  getUnidad() {
+    this.unidadService.getById(this.idUnidad)
+      .subscribe((data: any) => {
+        console.log(data.data[0].nombre);
+        this.unidad = data.data[0].nombre;
+        this.continnuar();
+      });
+  }
+  // showID(id: number) {
+  //   this.alimentoService.getShowID(id)
+  //   .then((data: any) => {
+  //     this.alimento = data.data.alimento;
+  //     this.unidad = data.data.calorias;
+  //   });
+  // }
+  continnuar() {
+      const alimentos = new DetalleAlimento(
+      this.cantidad, this.idUnidad, this.unidad, this.receta.id,
+      this.alimento, this.idAlimento, this.calorias, 0);
+      this.miDetalle.push(alimentos);
+      this.objetoDetalle = this.miDetalle;
+  }
+  agregarAlimento() {
+    this.showID(this.idAlimento);
+  }
+  delItem(num: number) {
+    let num2 = num - 1;
+    console.log(num);
+    this.miDetalle.splice(num, 1);
+    console.log(this.miDetalle);
+    this.objetoDetalle = this.miDetalle;
+    }
+    borrarObjeto(detalle: DetalleAlimento, index: number) {
+      console.log(detalle.id);
+      swal.fire({
+        title: '¿Desea confirmar?',
+        text: 'Se eliminará este registro permanentemente',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar'
+      }).then((result) => {
+        if (result.value) {
+          if (detalle.id === 0) {
+              console.log(detalle);
+              console.log('soy nuevo');
+              this.delItem(index);
+          } else {
+            this.recetaService.deleteDetalle(detalle.id)
+            .subscribe(resp => {
+              this.actulizar(this.receta);
+            });
+          }
+        }
+      });
+    }
 }

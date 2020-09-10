@@ -40,7 +40,7 @@ export class RecetaService {
       }));
     }
     busqueda( nombre: string ) {
-      const url = URL_SERVICIOS + '/api/recetas//busqueda';
+      const url = URL_SERVICIOS + '/api/recetas/busqueda-receta';
       const busqueda = { busqueda: nombre };
       return this.http.post( url, busqueda )
       .pipe(map( (resp: any) => {
@@ -56,7 +56,8 @@ export class RecetaService {
         }));
     }
     getInfoReceta(id: number) {
-        const url = URL_SERVICIOS + '/api/recetas/get-info-receta/' + 9;
+        console.log(id);
+        const url = URL_SERVICIOS + '/api/recetas/get-info-receta/' + id;
         return this.http.get(url);
     }
     subirImagen(archivo: File, id: string) {

@@ -1,66 +1,72 @@
 <div class="row page-titles">
-    <div class="col-12 row">
-        <div class="col-6 text-left">
-            <h3 class="text-themecolor">Perfil del paciente</h3>
-        </div>
-        <div class="col-6 text-right">
-            <button (click)="nuevo()" type="button" class="btn btn-info align-self-auto" data-toggle="modal" data-target="#exampleModal">
-                Sesión nueva
-                <i class="fas fa-play-circle"></i>     
-        </button>
-        </div>
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Perfil del paciente</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/pasiente']">Pacientes</a></li>
+            <li class="breadcrumb-item active">Perfil</li>
+        </ol>
     </div>
 </div>
 <div class="col-12 row">
-    <div class="col-6">
+    <div class="col-5">
         <div class="card mb-3 align-items-center">
             <div class="col-8">
                 <img class="card-img-top" src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png" alt="Card image cap">
             </div>
             <div class="card-body text-center">
 
-                <h5 class="card-title">Kenny de Jesus Catzin Ruiz</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Ingeniero en sistemas</h6>
+                <h5 class="card-title">{{ pasiente.nombres }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ pasiente.correo }}</h6>
 
                 <div class="col-12 row">
                     <div class="col-6 text-center">
-                        <a href="#">
+                        <a>
                             <div class="user-img"><span class="round bg-danger"><i class="mdi mdi-earth"></i></span></div>
                             <div class="mail-contnet">
-                                <h5>23 años</h5>
+                                <h5>{{calcularEdad(pasiente.fechanacimiento)}} años</h5>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 text-center">
-                        <a href="#">
+                        <a>
                             <div class="user-img"> <span class="round bg-success"><i class="mdi mdi-bone"></i></span></div>
                             <div class="mail-contnet">
-                                <h5>170 cm</h5>
+                                <h5>{{ pasiente.estatura }} cm</h5>
                             </div>
                         </a>
                     </div>
 
                 </div>
                 <div class="col 12 text-center">
-                    <a href="#">
+                    <a>
                         <div class="user-img"> <span class="round bg-primary"><i class="mdi mdi-message-text"></i></span></div>
                         <div class="mail-contnet">
-                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores commodi sequi iure tempora provident ad, ipsum, ex aliquam debitis dignissimos molestias minus nesciunt, voluptatum tempore? Ut sunt natus non rerum.</h5>
+                            <h5>{{ pasiente.objetivo }}</h5>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-7">
         <div class="card">
             <div class="card-body">
 
                 <div class="right-aside ">
                     <div class="right-page-header">
                         <div class="d-flex">
-                            <div class="align-self-center">
-                                <h4 class="card-title m-t-10">Historial de citas</h4>
+                            <div class="col-12 row">
+                                <div class="col-6 text-left">
+                                    <h4 class="card-title m-t-10">Historial de citas</h4>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button (click)="nuevo()" [routerLink]="['/paciente/perfil/sesion', 0, this.pacienteID]" type="button" class="btn btn-info align-self-auto" data-toggle="modal" data-target="#exampleModal">
+                                        Nueva sesión
+                                        <i class="fas fa-play-circle"></i>     
+                                </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,35 +74,26 @@
                         <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list text-center" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Fecha</th>
                                     <th>Peso</th>
-                                    <th>Acciòn</th>
+                                    <th>IMC</th>
+                                    <th>MM</th>
+                                    <th>MB</th>
+                                    <th>Grasa</th>
+                                    <th>Ver</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><span class="label label-light-primary">20 - Enero - 2019 </span> </td>
-                                    <td><span class="label label-light-success">97 kg</span></td>
-                                    <td><a [routerLink]="['/sesion']"><i class="fas fa-eye"></i></a>
+                                <tr *ngFor="let obj of objeto; let i = index">
+                                    <td><span class="label label-light-inverse">{{obj.fecha  |date:"mediumDate"}}</span> </td>
+                                    <td><span class="label label-light-info">{{obj.peso}} kg</span></td>
+                                    <td><span class="label label-light-primary">{{obj.imc}}</span></td>
+                                    <td><span class="label label-light-megna">{{obj.masa_muscular}}</span></td>
+                                    <td><span class="label label-light-warning">{{obj.metabolismo_basal}}</span></td>
+                                    <td><span class="label label-light-danger">{{obj.pctgrasa}} %</span></td>
+                                    <td><a [routerLink]="['/paciente/perfil/sesion', obj.id, this.pacienteID]"><i class="fas fa-eye text-secondary"></i></a>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-
-                                    <td><span class="label label-light-primary">20 - Enero - 2019 </span> </td>
-                                    <td><span class="label label-light-success">97 kg</span></td>
-                                    <td><a href="#"><i class="fas fa-eye"></i></a>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><span class="label label-light-primary">20 - Enero - 2019 </span> </td>
-                                    <td><span class="label label-light-success">97 kg</span></td>
-                                    <td><a href="#"><i class="fas fa-eye"></i></a>
-                                </tr>
-
                             </tbody>
-
                         </table>
                     </div>
                     <!-- .left-aside-column-->

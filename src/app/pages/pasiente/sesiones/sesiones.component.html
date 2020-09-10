@@ -1,83 +1,187 @@
-<div class="col-lg-12 col-xlg-9 col-md-7">
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Módulo de sesión</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/pasiente']">Pacientes</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/paciente/perfil/', this.pacienteID]">Perfil</a></li>
+            <li class="breadcrumb-item active">Sesión</li>
+        </ol>
+    </div>
+</div>
+
+<div class="col-lg-12">
     <div class="card">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs profile-tab" role="tablist">
-            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Gasto calórico</a> </li>
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#historial" role="tab">Historial clínico</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#home" role="tab">Gasto calórico</a> </li>
             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Dieta</a> </li>
             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Entrenamiento</a> </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="home" role="tabpanel">
+            <div class="tab-pane active" id="historial" role="tabpanel">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
-                            <br>
-                            <p class="text-muted">Johnathan Deo</p>
-                        </div>
-                        <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
-                            <br>
-                            <p class="text-muted">(123) 456 7890</p>
-                        </div>
-                        <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
-                            <br>
-                            <p class="text-muted">johnathan@admin.com</p>
-                        </div>
-                        <div class="col-md-3 col-xs-6"> <strong>Location</strong>
-                            <br>
-                            <p class="text-muted">London</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <form class="form-horizontal form-material">
-                        <div class="form-group">
-                            <label class="col-md-12">Peso Kg y Lb</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarCatalogo(f)">
+                        <div class="modal-body">
+                            <h3 class="box-title m-t-40">Análisis clínico</h3>
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Colesterol</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Trigliceridos</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Glucosa</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputCity">Presión arterial</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputCity">R. cardiaco %</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <h3 class="box-title m-t-40">Historial</h3>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Grasa %</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">IMC</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">MM</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="example-email" class="col-md-12">Estatura cm y Pies</label>
-                            <div class="col-md-12">
-                                <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                        <hr>
+                        <h3 class="box-title m-t-40">Alimentación</h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Kg. Peso</label>
+                                <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Edad</label>
-                            <div class="col-md-12">
-                                <input type="password" value="password" class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">FC en Reposo</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Message</label>
-                            <div class="col-md-12">
-                                <textarea rows="5" class="form-control form-control-line"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-12">Select Country</label>
-                            <div class="col-sm-12">
+                            <div class="form-group col-md-8">
+                                <label class="col-sm-12">Tipo de cuerpo</label>
                                 <select class="form-control form-control-line">
-                                    <option>London</option>
-                                    <option>India</option>
-                                    <option>Usa</option>
-                                    <option>Canada</option>
-                                    <option>Thailand</option>
+                                    <option>Ectomorfo</option>
+                                    <option>Mesomorfo</option>
+                                    <option>Endeformo</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <button class="btn btn-success">Update Profile</button>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="inputCity">Proteinas</label>
+                                <input value="{{this.proteinas}}" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputCity">Carbohidratos</label>
+                                <input value="{{this.carbohidratos}}" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputCity">Grasas</label>
+                                <input value="{{this.grasas}}" name="grasas" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputCity">Fibras</label>
+                                <input value="{{this.fibras}}" name="fibras" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputCity">Total Calorias</label>
+                                <input value="{{this.totCal}}" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputCity">Agua</label>
+                                <input value="{{this.ltsAgua}}" name="agua" type="number" class="form-control" placeholder="0" disabled>
                             </div>
                         </div>
+                        <hr>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-info">Guardar</button>
+                        </div>
                     </form>
+                </div>
+            </div>
+            <div class="tab-pane" id="home" role="tabpanel">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-10">
+                            <label for="inputCity">Frecuencia cardiáca en reposo</label>
+                            <input [(ngModel)]="fCardiacaReposo" name="fCardiacaReposo" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="inputCity">Calcular</label>
+                            <button (click)="calcular()" type="button" class="btn btn-info form-control text-white">
+                                <i class="fas fa-plus-circle"></i>     
+                        </button>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputCity">Horas de oficina</label>
+                            <input [(ngModel)]="hOficina" name="hOficina" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputCity">Horas en movimiento</label>
+                            <input [(ngModel)]="hMovimiento" name="hMovimiento" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputCity">Horas ejercicio</label>
+                            <input [(ngModel)]="hEjercicio" name="hEjercicio" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputCity">Horas sueño</label>
+                            <input [(ngModel)]="hSueno" name="hSueno" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-4 col-xlg-2">
+                            <div class="card">
+                                <div class="box bg-info text-center">
+                                    <h1 class="font-light text-white">{{ this.sesion.metabolismo_basal }}</h1>
+                                    <h6 class="text-white">Metabolismo Basal</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Column -->
+
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-4 col-xlg-2">
+                            <div class="card">
+                                <div class="box bg-success text-center">
+                                    <h1 class="font-light text-white">{{ this.sesion.gasto_calorico }}</h1>
+                                    <h6 class="text-white">Gasto calórico total</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-4 col-xlg-2">
+                            <div class="card">
+                                <div class="box bg-dark text-center">
+                                    <h1 class="font-light text-white">{{ this.sesion.frecuencia_cardiaca }}</h1>
+                                    <h6 class="text-white">Frecuencia cardiáca</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <!--second tab-->
@@ -91,6 +195,7 @@
 
                 </div>
             </div>
+
         </div>
     </div>
 </div>

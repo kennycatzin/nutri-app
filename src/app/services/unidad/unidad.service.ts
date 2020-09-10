@@ -19,8 +19,11 @@ export class UnidadService {
 
 
   getElementos( desde: Number = 0) {
-    console.log("llego aqui");
     const url = URL_SERVICIOS + '/api/unidades/get-unidades';
+    return this.http.get(url);
+  }
+  getById( id: number) {
+    const url = URL_SERVICIOS + '/api/unidades/get-byid/' + id;
     return this.http.get(url);
   }
 

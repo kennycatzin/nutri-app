@@ -74,7 +74,7 @@
                                 <td>{{obj.proteinas}}</td>
                                 <td>{{obj.grasas}}</td>
                                 <td>{{obj.carbohidratos}}</td>
-                                <td class="text-center"><a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a> <a (click)="borrar(obj)"><i class="fas fa-trash-alt"></i></a> </td>
+                                <td class="row justify-content-around"><a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a> <a (click)="borrar(obj)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
                             </tr>
 
 
@@ -130,18 +130,26 @@
                         </select>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="inputCity">Proteina</label>
                             <input [(ngModel)]="alimento.proteinas" name="proteinas" type="number" class="form-control" placeholder="0" required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputState">Grasa</label>
-                            <input [(ngModel)]="alimento.grasas" name="grasas" type="number" class="form-control" placeholder="0" required>
-                        </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="inputZip">Carbohidratos</label>
                             <input [(ngModel)]="alimento.carbohidratos" name="carbohidratos" type="number" class="form-control" placeholder="0" required>
                         </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label for="inputState">Grasa</label>
+                            <input [(ngModel)]="alimento.grasas" name="grasas" type="number" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">Calorias</label>
+                            <input [(ngModel)]="alimento.calorias" name="calorias" type="number" class="form-control" placeholder="0" required>
+                        </div>
+
                     </div>
 
 

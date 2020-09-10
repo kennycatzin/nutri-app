@@ -43,10 +43,10 @@
                                 <td>{{i+1}}</td>
                                 <td></td>
                                 <td>{{obj.nombres}} {{obj.apellidopaterno}} {{obj.apellidomaterno}}</td>
-                                <td>{{calcularEdad(obj.fechanacimiento)}}</td>
-                                <td class="text-center">
-                                    <a [routerLink]="['/perfil', obj.id]"><i class="fas fa-rocket"></i></a>
-                                    <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="w-25 fas fa-edit text-warning"></i></a>
+                                <td>{{calcularEdad(obj.fechanacimiento)}} años</td>
+                                <td class="row justify-content-around">
+                                    <a [routerLink]="['/paciente/perfil', obj.id]"><i class="fas fa-rocket"></i></a>
+                                    <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a>
                                     <a (click)="borrar(obj)"><i class=" fas fa-trash-alt text-danger"></i></a>
                                 </td>
                             </tr>

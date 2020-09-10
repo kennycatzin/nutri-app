@@ -4,6 +4,7 @@ export class Alimento {
         public proteinas: string,
         public carbohidratos: string,
         public grasas: string,
+        public calorias: number,
         public clasificacion_id: string,
         public id?: number
     ) {

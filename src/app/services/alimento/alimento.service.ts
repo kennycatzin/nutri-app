@@ -61,5 +61,18 @@ export class AlimentoService {
       let url = URL_SERVICIOS + '/api/alimentos/get-clasificacion/' + id;
       return this.http.get(url);
     }
+
+    getShowID(id: number) {
+      let url = URL_SERVICIOS + '/api/alimentos/' + id;
+      return this.http.get( url )
+      .pipe(map( (resp: any) => {
+        return resp;
+      }));
+    }
+    // public async getShowID(id: number) {
+    //   const url = URL_SERVICIOS + '/api/alimentos/' + id;
+    //   const data = await this.http.get(url).toPromise();
+    //   return data;
+    // }
 }
 

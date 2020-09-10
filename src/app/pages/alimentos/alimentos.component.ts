@@ -16,7 +16,7 @@ export class AlimentosComponent implements OnInit {
 
   constructor(public alimentoService: AlimentoService,
               public clasificacionService: ClasificacionService) { }
-alimento: Alimento = new Alimento('', '', '', '', '');
+alimento: Alimento = new Alimento('', '', '', '', 0, '');
 cargando = false;
 desde = 0;
 objeto: Alimento[];
@@ -54,7 +54,7 @@ clasificaciones: Clasificacion;
     });
   }
   nuevo() {
-    this.alimento = new Alimento('', '', '', '', '');
+    this.alimento = new Alimento('', '', '', '', 0, '');
 
   }
   actulizar(alimento: Alimento) {

@@ -1,3 +1,4 @@
+import { DetalleAlimento } from './detalleReceta.model';
 export class Receta {
     constructor(
         public nombre: string,

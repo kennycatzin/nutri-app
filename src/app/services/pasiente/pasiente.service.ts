@@ -55,4 +55,8 @@ export class PasienteService {
         return resp.data;
       }));
     }
+    getPaciente(id: number) {
+      const url = URL_SERVICIOS + '/api/pasientes/' + id;
+      return this.http.get(url);
+    }
 }

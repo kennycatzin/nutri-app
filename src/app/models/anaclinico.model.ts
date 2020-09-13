@@ -3,9 +3,9 @@ export class AnaClinico {
     constructor(
         public colesterol: number,
         public trigliceridos: number,
-        public glucosa: string,
+        public glucosa: number,
         public presionarterial: number,
-        public sesion_id: string,
+        public sesion_id: number,
         public id?: number
     ) {
     }

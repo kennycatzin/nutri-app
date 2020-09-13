@@ -23,6 +23,7 @@ objeto: Alimento[];
 totalRegistros = 0;
 clasificaciones: Clasificacion;
 
+totalCalorias = 0;
 
 
   ngOnInit() {
@@ -71,6 +72,7 @@ clasificaciones: Clasificacion;
     if ( f.invalid ) {
       return;
     }
+    this.alimento.calorias = this.totalCalorias;
     console.log(this.alimento);
     if (this.alimento.id) {
       this.alimentoService.actualizar(this.alimento.id, this.alimento)
@@ -117,5 +119,10 @@ clasificaciones: Clasificacion;
     }
     this.desde += numero;
     this.traerDatos();
+  }
+  calcularCalorias(termino: number) {
+    this.totalCalorias = (Number(this.alimento.carbohidratos) * 4) + (Number(this.alimento.proteinas) * 4);
+    this.totalCalorias += (Number(this.alimento.grasas) * 9);
+    this.totalCalorias = Math.round(this.totalCalorias * 1000) / 1000;  // 55.6
   }
 }

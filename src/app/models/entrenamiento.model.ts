@@ -1,0 +1,10 @@
+import { Programa } from './programa.model';
+export class Entrenamiento {
+    constructor(
+        public dias: string,
+        public notas: string,
+        public programa: Programa[],
+        public id?: number
+    ) {
+    }
+}

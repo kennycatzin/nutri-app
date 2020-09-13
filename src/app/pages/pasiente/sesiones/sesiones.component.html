@@ -26,7 +26,65 @@
                 <div class="card-body">
                     <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarCatalogo(f)">
                         <div class="modal-body">
-                            <h3 class="box-title m-t-40">Análisis clínico</h3>
+                            <h3 class="box-title">Alimentación</h3>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Kg. Peso</label>
+                                    <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label class="col-sm-12">Tipo de cuerpo</label>
+                                    <select class="form-control form-control-line">
+                                    <option>Ectomorfo</option>
+                                    <option>Mesomorfo</option>
+                                    <option>Endeformo</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Proteinas</label>
+                                    <input value="{{this.proteinas}}" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Carbohidratos</label>
+                                    <input value="{{this.carbohidratos}}" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Grasas</label>
+                                    <input value="{{this.grasas}}" name="grasas" type="number" class="form-control" placeholder="0" disabled>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Fibras</label>
+                                    <input value="{{this.fibras}}" name="fibras" type="number" class="form-control" placeholder="0" disabled>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Total Calorias</label>
+                                    <input value="{{this.totCal}}" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Agua</label>
+                                    <input value="{{this.ltsAgua}}" name="agua" type="number" class="form-control" placeholder="0" disabled>
+                                </div>
+                            </div>
+                            <hr>
+                            <h3 class="box-title">Historial</h3>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Grasa %</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">IMC</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">MM</label>
+                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <h3 class="box-title">Análisis clínico</h3>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="inputCity">Colesterol</label>
@@ -48,154 +106,397 @@
                                     <label for="inputCity">R. cardiaco %</label>
                                     <input name="cantidad" type="number" class="form-control" placeholder="0" required>
                                 </div>
+
+                                <!-- <div class="col-12 row">
+                                    <div class="col-6 text-right">
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button class="btn btn-secondary mr-3" data-toggle="tab" href="#historial" role="tab"><i class="fas fa-arrow-circle-left"></i> </button>
+                                        <button class="btn btn-primary" data-toggle="tab" href="#home" role="tab"> <i class="fas fa-arrow-circle-right "></i> </button>
+                                    </div>
+                                </div> -->
+
                             </div>
-                            <hr>
-                            <h3 class="box-title m-t-40">Historial</h3>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Grasa %</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">IMC</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">MM</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <h3 class="box-title m-t-40">Alimentación</h3>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputCity">Kg. Peso</label>
-                                <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <label class="col-sm-12">Tipo de cuerpo</label>
-                                <select class="form-control form-control-line">
-                                    <option>Ectomorfo</option>
-                                    <option>Mesomorfo</option>
-                                    <option>Endeformo</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-2">
-                                <label for="inputCity">Proteinas</label>
-                                <input value="{{this.proteinas}}" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCity">Carbohidratos</label>
-                                <input value="{{this.carbohidratos}}" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCity">Grasas</label>
-                                <input value="{{this.grasas}}" name="grasas" type="number" class="form-control" placeholder="0" disabled>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCity">Fibras</label>
-                                <input value="{{this.fibras}}" name="fibras" type="number" class="form-control" placeholder="0" disabled>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCity">Total Calorias</label>
-                                <input value="{{this.totCal}}" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputCity">Agua</label>
-                                <input value="{{this.ltsAgua}}" name="agua" type="number" class="form-control" placeholder="0" disabled>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-info">Guardar</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="tab-pane" id="home" role="tabpanel">
-                <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col-10">
-                            <label for="inputCity">Frecuencia cardiáca en reposo</label>
-                            <input [(ngModel)]="fCardiacaReposo" name="fCardiacaReposo" type="number" class="form-control" placeholder="0" required>
+
+            <div class="tab-pane " id="home" role="tabpanel ">
+                <div class="card-body ">
+                    <div class="form-row ">
+                        <div class="form-group col-10 ">
+                            <label for="inputCity ">Frecuencia cardiáca en reposo</label>
+                            <input [(ngModel)]="fCardiacaReposo " name="fCardiacaReposo " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-2">
-                            <label for="inputCity">Calcular</label>
-                            <button (click)="calcular()" type="button" class="btn btn-info form-control text-white">
-                                <i class="fas fa-plus-circle"></i>     
+                        <div class="form-group col-2 ">
+                            <label for="inputCity ">Calcular</label>
+                            <button (click)="calcular() " type="button " class="btn btn-info form-control text-white ">
+                                <i class="fas fa-plus-circle "></i>     
                         </button>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label for="inputCity">Horas de oficina</label>
-                            <input [(ngModel)]="hOficina" name="hOficina" type="number" class="form-control" placeholder="0" required>
+                    <div class="form-row ">
+                        <div class="form-group col-md-3 ">
+                            <label for="inputCity ">Horas de oficina</label>
+                            <input [(ngModel)]="hOficina " name="hOficina " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputCity">Horas en movimiento</label>
-                            <input [(ngModel)]="hMovimiento" name="hMovimiento" type="number" class="form-control" placeholder="0" required>
+                        <div class="form-group col-md-3 ">
+                            <label for="inputCity ">Horas en movimiento</label>
+                            <input [(ngModel)]="hMovimiento " name="hMovimiento " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputCity">Horas ejercicio</label>
-                            <input [(ngModel)]="hEjercicio" name="hEjercicio" type="number" class="form-control" placeholder="0" required>
+                        <div class="form-group col-md-3 ">
+                            <label for="inputCity ">Horas ejercicio</label>
+                            <input [(ngModel)]="hEjercicio " name="hEjercicio " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputCity">Horas sueño</label>
-                            <input [(ngModel)]="hSueno" name="hSueno" type="number" class="form-control" placeholder="0" required>
+                        <div class="form-group col-md-3 ">
+                            <label for="inputCity ">Horas sueño</label>
+                            <input [(ngModel)]="hSueno " name="hSueno " type="number " class="form-control " placeholder="0 " required>
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row ">
                         <!-- Column -->
-                        <div class="col-md-6 col-lg-4 col-xlg-2">
-                            <div class="card">
-                                <div class="box bg-info text-center">
-                                    <h1 class="font-light text-white">{{ this.sesion.metabolismo_basal }}</h1>
-                                    <h6 class="text-white">Metabolismo Basal</h6>
+                        <div class="col-md-6 col-lg-4 col-xlg-2 ">
+                            <div class="card ">
+                                <div class="box bg-info text-center ">
+                                    <h1 class="font-light text-white ">{{ this.sesion.metabolismo_basal }}</h1>
+                                    <h6 class="text-white ">Metabolismo Basal</h6>
                                 </div>
                             </div>
                         </div>
                         <!-- Column -->
 
                         <!-- Column -->
-                        <div class="col-md-6 col-lg-4 col-xlg-2">
-                            <div class="card">
-                                <div class="box bg-success text-center">
-                                    <h1 class="font-light text-white">{{ this.sesion.gasto_calorico }}</h1>
-                                    <h6 class="text-white">Gasto calórico total</h6>
+                        <div class="col-md-6 col-lg-4 col-xlg-2 ">
+                            <div class="card ">
+                                <div class="box bg-success text-center ">
+                                    <h1 class="font-light text-white ">{{ this.sesion.gasto_calorico }}</h1>
+                                    <h6 class="text-white ">Gasto calórico total</h6>
                                 </div>
                             </div>
                         </div>
                         <!-- Column -->
-                        <div class="col-md-6 col-lg-4 col-xlg-2">
-                            <div class="card">
-                                <div class="box bg-dark text-center">
-                                    <h1 class="font-light text-white">{{ this.sesion.frecuencia_cardiaca }}</h1>
-                                    <h6 class="text-white">Frecuencia cardiáca</h6>
+                        <div class="col-md-6 col-lg-4 col-xlg-2 ">
+                            <div class="card ">
+                                <div class="box bg-dark text-center ">
+                                    <h1 class="font-light text-white ">{{ this.sesion.frecuencia_cardiaca }}</h1>
+                                    <h6 class="text-white ">Frecuencia cardiáca</h6>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
+            </div>
+            <!--second tab-->
+            <div class="tab-pane " id="profile" role="tabpanel">
+                <div class="card-body">
+                    <div class="col-12 row">
+                        <div class="col-6 text-left">
+                            <h3 class="box-title">Panel de dieta</h3>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button (click)="nuevo()" type="button" class="btn btn-success align-self-auto" data-toggle="modal" data-target="#dieta">
+                                Agregar comida
+                                <i class="fas fa-utensils"></i>        
+                        </button>
+                        </div>
+                    </div>
+                    <div class="col-12 row">
+                        <!-- Items a por comida -->
+                        <div *ngFor="let comida of objetoComida; let i = index" class="col-4 card align-items-start">
+                            <div class="card-body text-left col-12">
+                                <div class="row">
+                                    <div class="col-7 align-self-center">
+                                        <h5 class="card-title">{{ comida.nombre }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ comida.notas }}</h6>
+                                    </div>
+                                    <div class="col-5 text-right">
+                                        <button (click)="editarComida(comida, i)" class="btn btn-outline-warning" data-toggle="modal" data-target="#dieta"><i class="fas fa-edit"></i></button>
+                                        <button (click)="eliminarComida(comida, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                                <ul class="list-group">
+                                    <!-- Items por Alimento -->
+                                    <li *ngFor="let detalle of comida.det_comidas" class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ detalle.cantidad }} {{ detalle.unidad }} de {{ detalle.alimento }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Observaciones</label>
+                        <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
                     </div>
                 </div>
             </div>
-            <!--second tab-->
-            <div class="tab-pane" id="profile" role="tabpanel">
-                <div class="card-body">
+            <div class="tab-pane " id="settings" role="tabpanel">
+                <div class="card-body ">
+                    <div class="col-12 row">
+                        <div class="col-6 text-left">
+                            <h3 class="box-title">Panel de entrenamiento</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 text-left">
+                        <div *ngFor="let semana of diasSemana" class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="{{semana.inl}}" [(ngModel)]="semana.check" [disabled]="semana.disab">
+                            <label class="form-check-label" for="{{semana.inl}}">{{semana.dia}}</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Notas</label>
+                                    <input [(ngModel)]="entrenamiento.notas" name="notas" type="text" class="form-control rounded-3">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <button (click)="addDia()" type="button" class="btn btn-success mt-4">
+                                    Agregar Dias
+                                    <i class="mdi mdi-dumbbell"></i>        
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12 row">
+                        <!-- Items a por comida -->
+                        <div *ngFor="let diasE of objEntrenamiento" class="col-6 card align-items-start">
+                            <div class="card-body text-left col-12">
+                                <div class="row">
+                                    <div class="col-7 align-self-center">
+                                        <h5 class="card-title"> {{diasE.dias}} </h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"> {{diasE.notas}} </h6>
+                                    </div>
+                                    <div class="col-5 text-right">
+                                        <button class="btn btn-outline-success" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-plus-square"></i></button>
+                                        <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                                <ul class="list-group">
+                                    <!-- Items por Alimento -->
+                                    <li class="list-group-item list-group-item-action active">
+                                        Circuito 1: (6 x 12) - 60 segundos de descanso
+                                    </li>
+                                    <ul class="list-group">
+                                        <!-- Items por Alimento -->
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            mov.laterlaes con mancuerna
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            embestidas con banco
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            sentadilla suiza con balon
+                                        </li>
+                                    </ul>
+                                </ul>
 
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Observaciones</label>
+                        <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                    </div>
                 </div>
             </div>
-            <div class="tab-pane" id="settings" role="tabpanel">
-                <div class="card-body">
-
+            <div class="modal-footer ">
+                <button type="submit " class="btn btn-info ">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="dieta" tabindex="-1" role="dialog" aria-labelledby="dieta" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dieta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            <input [(ngModel)]="comida.nombre" name="comidaNombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputZip">Total calorías</label>
+                            <input [(ngModel)]="comida.calorias" name="calorias" type="number" class="form-control" placeholder="0" required disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Observaciones</label>
+                            <textarea [(ngModel)]="comida.notas" name="notas" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Cantidad</label>
+                        <input [(ngModel)]="cantidad" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Unidad</label>
+                        <select [(ngModel)]="idUnidad" name="idUnidad" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let unidad of misUnidades" [value]="unidad.id">
+                                    {{unidad.nombre}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputCity">Tipo alimento</label>
+                        <select (change)="onSelectChange($event.target.value)" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let tipo of misTiposAlimentos" [value]="tipo.id">
+                                    {{tipo.nombre}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputCity">Alimento</label>
+                        <select [(ngModel)]="idAlimento" name="idAlimento" class="form-control">
+                            <option value="">SELECCIONE</option>
+                            <option *ngFor="let alimento of misAlimentos" [value]="alimento.id">
+                                {{alimento.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button (click)="agregarAlimento()" type="button" class="btn btn-primary mt-lg-4">
+                                <i class="fas fa-plus-circle"></i>        
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table color-table success-table">
+                        <thead>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Alimento</th>
+                                <th>Calorias</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of objetoDetalle; let i = index">
+                                <td>{{obj.cantidad}}</td>
+                                <td>{{obj.unidad}}</td>
+                                <td>{{obj.alimento}}</td>
+                                <td>{{obj.calorias}}</td>
+                                <td class="text-center"><a (click)="borrarObjeto(obj, i)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="agregarComida()" type="submit" class="btn btn-info">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade bd-example-modal-lg" id="entrenamiento" tabindex="-1" role="dialog" aria-labelledby="entrenamiento" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Entrenamiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            <input name="nombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Repeticiones</label>
+                                <input name="tiempo_coccion" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Vueltas</label>
+                                <input name="tiempo_preparacion" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputZip">Descanso</label>
+                                <input name="total_calorias" type="number" class="form-control" placeholder="Segundos" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Observaciones</label>
+                            <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="inputCity">Mùsculo</label>
+                        <select name="idUnidad" class="form-control">
+                            <option value="">SELECCIONE</option>
+                            <option *ngFor="let musculo of misTiposEjercicios" [value]="musculo.id">
+                                {{musculo.nombre}}
+                            </option>
+                        </select> </div>
+                    <div class="form-group col-md-5">
+                        <label for="inputCity">Ejercicio</label>
+                        <select name="idUnidad" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <!-- <option *ngFor="let unidad of misUnidades" [value]="unidad.id">
+                                    {{unidad.nombre}}
+                                </option> -->
+                            </select>
+                    </div>
+                    <div class="form-group col-md-2 align-self-end">
+                        <button type="button" class="btn btn-primary mt-lg-4 ml-4">
+                                <i class="fas fa-plus-circle"></i>        
+                            </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table color-table success-table">
+                        <thead>
+                            <tr>
+                                <th style=" width: 40%; ">Músculo</th>
+                                <th style=" width: 40%; ">Ejercio</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of objDetPrograma; let i = index">
+                                <td>{{obj.musculo}}</td>
+                                <td>{{obj.ejercicio_id}}</td>
+                                <td class="text-center"><a (click)="borrarDetPrograma(obj, i)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-info">Guardar</button>
+            </div>
         </div>
     </div>
 </div>

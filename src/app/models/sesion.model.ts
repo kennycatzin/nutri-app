@@ -1,5 +1,7 @@
 
 import { AnaClinico } from './anaclinico.model';
+import { Dieta } from './dieta.model';
+
 export class Sesion {
     constructor(
         public sesion: number,
@@ -14,6 +16,7 @@ export class Sesion {
         public tipo_cuerpo: string,
         public paciente_id: number,
         public ana_clinico: AnaClinico,
+        public dieta: Dieta,
         public id?: number
     ) {
     }

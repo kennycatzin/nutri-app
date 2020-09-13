@@ -1,6 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CuentasxpagarComponent } from './cuentasxpagar.component';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatIconModule} from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatNativeDateModule, MatDatepickerModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+
+
 
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { sharedModule } from '../shared/shared.module';
@@ -42,7 +48,11 @@ import { RecetasComponent } from './recetas/recetas.component';
       FormsModule,
       ReactiveFormsModule,
       CommonModule,
-      HttpClientModule
+      HttpClientModule,
+      MatTreeModule,
+      MatIconModule,
+      BrowserAnimationsModule,
+      MatNativeDateModule, MatDatepickerModule, MatFormFieldModule, MatInputModule
   ],
   exports: [
     UsuariosComponent,

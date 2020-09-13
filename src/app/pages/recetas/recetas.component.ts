@@ -16,7 +16,6 @@ import { Alimento } from 'src/app/models/alimento.model';
   styleUrls: ['./recetas.component.css']
 })
 export class RecetasComponent implements OnInit {
-
   constructor(public recetaService: RecetaService,
               public clasificacionService: ClasificacionService,
               public unidadService: UnidadService,
@@ -53,9 +52,8 @@ sumCalorias = 0;
 
 
   ngOnInit(): void {
-    console.log(this.recetaService.getRecetaPaginacion(this.desde));
-    this.getClaisificaciones();
     this.traerDatos();
+    this.getClaisificaciones();
     this.getUnidades();
     this.getAlimentos();
     this.getTipoAlimentos();

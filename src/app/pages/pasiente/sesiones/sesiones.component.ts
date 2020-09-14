@@ -19,6 +19,7 @@ import { Entrenamiento } from 'src/app/models/entrenamiento.model';
 import { Programa } from '../../../models/programa.model';
 import { DetPrograma } from '../../../models/detallePrograma.model';
 import { Ejercicio } from '../../../models/ejercicio.model';
+import { EjercicioService } from '../../../services/ejercicio/ejercicio.service';
 
 
 
@@ -79,7 +80,8 @@ export class SesionesComponent implements OnInit {
              private pacienteService: PasienteService,
              public clasificacionService: ClasificacionService,
              public unidadService: UnidadService,
-             public alimentoService: AlimentoService) {
+             public alimentoService: AlimentoService,
+             public ejercicioService: EjercicioService) {
                }
 
   sesionID = 0;
@@ -108,7 +110,7 @@ export class SesionesComponent implements OnInit {
 
   miEntrenamiento: Array<Entrenamiento> = [];
   objEntrenamiento: Entrenamiento[] = [];
-  entrenamiento: Entrenamiento = new Entrenamiento('', '', this.objPrograma, 0);
+  entrenamiento: Entrenamiento = new Entrenamiento('', '', [], this.objPrograma, 0);
 
 
   paciente: Pasiente;
@@ -154,17 +156,28 @@ export class SesionesComponent implements OnInit {
   fcUno = 0;
   fcDos = 0;
 
-  idAlimento = 1;
+  idAlimento = 0;
+  idEjercicio = 0;
   idUnidad = 1;
   cantidad = 1;
   calorias = 1;
+  idTipoEjercicio = 1;
 
   unidad = '';
   alimento = '';
+  ejercicio = '';
+  musculo = '';
+
+
   sumCalorias = 0;
 
   itemEditar = -1;
+  itemEntrenamiento = -1;
+  itemEditarPrograma = -1;
 
+  messageSuccess = false;
+  messageSuccess2 = false;
+  miCheck = false;
 
     ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id, paciente_id}) => this.cargarSesion(id, paciente_id));
@@ -179,6 +192,12 @@ export class SesionesComponent implements OnInit {
     this.alimentoService.getClasificacion(this.idAlimento)
     .subscribe( (data: any) => {
     this.misAlimentos = data.data;
+    });
+  }
+  getEjercicios() {
+    this.ejercicioService.getClasificado(this.idTipoEjercicio)
+    .subscribe( (data: any) => {
+    this.misEjercicios = data.data;
     });
   }
   getTipoAlimentos() {
@@ -196,19 +215,17 @@ export class SesionesComponent implements OnInit {
   getUnidades() {
     this.unidadService.getElementos()
     .subscribe( (data: any) => {
-      console.log(data);
       this.misUnidades = data.data;
     });
   }
   getClaisificaciones() {
     this.clasificacionService.getClasificacionReceta()
     .subscribe( (data: any) => {
-      console.log(data);
       this.clasificaciones = data.data;
     });
   }
   reiniciarValores() {
-    this.idAlimento = 1;
+    this.idAlimento = 0;
     this.idUnidad = 1;
     this.cantidad = 1;
     this.calorias = 1;
@@ -218,14 +235,44 @@ export class SesionesComponent implements OnInit {
     this.idAlimento = deviceValue;
     this.getAlimentos();
   }
+  onSelectChangeEjercicio(deviceValue) {
+    this.idEjercicio = deviceValue;
+  }
+  onSelectChangeMusculo(deviceValue) {
+    this.idTipoEjercicio = deviceValue;
+    this.getEjercicios();
+  }
   agregarAlimento() {
-    this.showID(this.idAlimento);
+    if ( this.idAlimento > 0) {
+          this.showID(this.idAlimento);
+    } else {
+      return false;
+    }
+  }
+  agregarEjercicio() {
+    if ( this.idEjercicio > 0) {
+      this.showEjercicioID(this.idEjercicio);
+    } else {
+      return false;
+    }
+  }
+  showEjercicioID(id: number) {
+    this.ejercicioService.getByID(id)
+      .subscribe((data: any) => {
+        this.ejercicio = data.data.nombre;
+        this.getMusculo();
+      });
+  }
+  getMusculo() {
+    this.clasificacionService.getClasificacionID(this.idTipoEjercicio)
+    .subscribe((data: any) => {
+      this.musculo = data.data.nombre;
+      this.continnuarEjercicio();
+    });
   }
   showID(id: number) {
     this.alimentoService.getShowID(id)
       .subscribe((data: any) => {
-        console.log('aqui');
-        console.log(data.data.nombre);
         this.alimento = data.data.nombre;
         this.sumCalorias = data.data.calorias;
         this.getUnidad();
@@ -234,10 +281,14 @@ export class SesionesComponent implements OnInit {
   getUnidad() {
     this.unidadService.getById(this.idUnidad)
       .subscribe((data: any) => {
-        console.log(data.data[0].nombre);
         this.unidad = data.data[0].nombre;
         this.continnuar();
       });
+  }
+  continnuarEjercicio() {
+    const ejercicio = new DetPrograma(this.ejercicio, this.musculo, this.idEjercicio, 0);
+    this.miDetPrograma.push(ejercicio);
+    this.objDetPrograma = this.miDetPrograma;
   }
   continnuar() {
     const alimentos = new DetalleAlimento(
@@ -247,6 +298,9 @@ export class SesionesComponent implements OnInit {
     this.objetoDetalle = this.miDetalle;
   }
   agregarComida() {
+    if ( this.miDetalle.length <= 0 || this.comida.nombre.length < 3) {
+        return false;
+    }
     if (this.itemEditar >= 0) {
       this.miComida[this.itemEditar] = this.comida;
     } else {
@@ -259,7 +313,43 @@ export class SesionesComponent implements OnInit {
     this.objetoDetalle = [];
     this.miDetalle = [];
     this.reiniciarValores();
+    this.messageSuccess = true;
+    this.setVisible();
+
+    this.comida = new Comida('', 0, '', [], 0);
+    this.idAlimento = 0;
     // this.dataSource.data = this.objetoComida;
+  }
+  agregarPrograma() {
+    if ( this.miDetPrograma.length <= 0 || this.programa.nombre.length < 3 ||
+       this.programa.repeticiones < 1 || this.programa.vueltas < 1 || this.programa.descanso < 1) {
+      return false;
+  }
+    console.log(this.itemEditarPrograma);
+    if (this.itemEditarPrograma >= 0) {
+      this.programa[this.itemEditarPrograma] = this.programa;
+    } else {
+      const programa = new Programa(this.programa.nombre, this.programa.notas,
+      this.programa.repeticiones, this.programa.vueltas, this.programa.descanso, this.miDetPrograma, 0 );
+      this.miPrograma.push(programa);
+    }
+
+
+    this.objPrograma = this.miPrograma;
+    this.detPrograma = new DetPrograma('', '', 1, 0);
+    this.miDetPrograma = [];
+    this.objDetPrograma = [];
+
+
+    this.programa = new Programa('', '', 0, 0, 0, [], 0);
+
+    this.miEntrenamiento[this.itemEntrenamiento].programa = this.objPrograma;
+    this.objEntrenamiento[this.itemEntrenamiento].programa = this.miEntrenamiento[this.itemEntrenamiento].programa;
+    console.log(this.objEntrenamiento);
+    this.objPrograma = [];
+    this.messageSuccess2 = true;
+    this.setVisible();
+    // this.miPrograma = [];
   }
 borrarObjeto(detalle: DetalleAlimento, index: number) {
   swal.fire({
@@ -272,8 +362,6 @@ borrarObjeto(detalle: DetalleAlimento, index: number) {
   }).then((result) => {
     if (result.value) {
       if (detalle.id === 0) {
-          console.log(detalle);
-          console.log('soy nuevo');
           this.delItem(index);
       } else {
         // this.recetaService.deleteDetalle(detalle.id)
@@ -285,10 +373,8 @@ borrarObjeto(detalle: DetalleAlimento, index: number) {
   });
 }
 delItem(num: number) {
-  let num2 = num - 1;
-  console.log(num);
+  const num2 = num - 1;
   this.miDetalle.splice(num, 1);
-  console.log(this.miDetalle);
   this.objetoDetalle = this.miDetalle;
   }
   nuevo() {
@@ -300,7 +386,6 @@ delItem(num: number) {
   }
   guardarComida() {
     this.comida.det_comidas = this.miDetalle;
-    console.log(this.comida);
     this.nuevo();
     // this.recetaService.guardarReceta( this.receta )
     //   .subscribe( objeto => {
@@ -316,7 +401,6 @@ delItem(num: number) {
   traerPaciente() {
       this.pacienteService.getPaciente(this.pacienteID)
       .subscribe( (data: any) => {
-        console.log(data);
         this.paciente = data.data[0];
         this.calcularEdad(this.paciente.fechanacimiento);
         this.estatura = this.paciente.estatura;
@@ -376,6 +460,13 @@ delItem(num: number) {
     this.miDetalle = arreglo;
     this.objetoDetalle = comida.det_comidas;
   }
+  editarPrograma(programa: Programa, item: number) {
+    this.itemEditarPrograma = item;
+    const arreglo = programa.det_programa;
+    this.programa = programa;
+    this.miDetPrograma = arreglo;
+    this.objDetPrograma = programa.det_programa;
+  }
   eliminarComida(comida: Comida, item: number) {
     swal.fire({
       title: '¿Desea confirmar?',
@@ -387,8 +478,6 @@ delItem(num: number) {
     }).then((result) => {
       if (result.value) {
         if (comida.id === 0) {
-            console.log(comida);
-            console.log('soy nuevo');
             this.delItemComida(item);
         } else {
           // this.recetaService.deleteDetalle(detalle.id)
@@ -400,28 +489,157 @@ delItem(num: number) {
     });
   }
   delItemComida(num: number) {
-    console.log(num);
     this.miComida.splice(num, 1);
     this.objetoComida = this.miComida;
     }
+    delItemDetPrograma(num: number) {
+      this.miDetPrograma.splice(num, 1);
+      this.objDetPrograma = this.miDetPrograma;
+    }
+    delItemPrograma(num: number) {
+      this.miPrograma.splice(num, 1);
+      this.objPrograma = this.miPrograma;
+    }
     addDia() {
+      console.log(this.miCheck);
+      if (this.entrenamiento.notas.length < 4 || this.miCheck === false) {
+        return false;
+      }
       let diaEntrena = '';
       let contador = 0;
+      const arreglo = new Array();
       for (let i = 0; i <= this.diasSemana.length - 1; i++) {
         if (this.diasSemana[i].check === true && this.diasSemana[i].disab === false) {
           this.diasSemana[i].disab = true;
           diaEntrena += this.diasSemana[i].dia + ' - ';
+          arreglo.push(i);
           contador ++;
         }
       }
       diaEntrena = diaEntrena.substring(-3);
-      const entrenamiento = new Entrenamiento( diaEntrena.substring(-3), this.entrenamiento.notas, [], 0);
+      const entrenamiento = new Entrenamiento( diaEntrena.substring(-3), this.entrenamiento.notas, arreglo, [], 0);
       this.miEntrenamiento.push(entrenamiento);
 
       this.objEntrenamiento = this.miEntrenamiento;
-      this.entrenamiento = new Entrenamiento('', '', [], 0);
+      console.log(this.objEntrenamiento);
+      this.entrenamiento = new Entrenamiento('', '', [], [], 0);
+      this.miCheck = false;
     }
-    borrarDetPrograma(detPrograma: DetPrograma){
-      console.log(detPrograma);
+    borrarDetPrograma(detPrograma: DetPrograma, index: number) {
+      swal.fire({
+        title: '¿Desea confirmar?',
+        text: 'Se eliminará este registro permanentemente',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar'
+      }).then((result) => {
+        if (result.value) {
+          if (detPrograma.id === 0) {
+              this.delItemDetPrograma(index);
+          } else {
+            // this.recetaService.deleteDetalle(detalle.id)
+            // .subscribe(resp => {
+            //   this.actulizar(this.receta);
+            // });
+          }
+        }
+      });
+    }
+    nuevoEntrenamiento() {
+      this.miDetPrograma = [];
+      this.objDetPrograma = this.miDetPrograma;
+      this.programa = new Programa('', '', 0, 0, 0, this.objDetPrograma, 0);
+    }
+    addEntrenamiento(objeto: Entrenamiento, index: number) {
+      console.log(index);
+      this.itemEditarPrograma = -1;
+      if (this.itemEntrenamiento === index) {
+        console.log('edita');
+        this.miPrograma = objeto.programa;
+      } else {
+        this.miPrograma = [];
+        this.nuevoEntrenamiento();
+      }
+      this.itemEntrenamiento = index;
+    }
+    delItemEntrenamiento(objeto: Entrenamiento, index: number) {
+      for (let i = 0; i <= objeto.arDias.length - 1; i++) {
+        for (let j = 0; j <= this.diasSemana.length - 1; j++) {
+          if (objeto.arDias[i] === j) {
+              this.diasSemana[j].disab = false;
+              this.diasSemana[j].check = false;
+          }
+        }
+      }
+      this.miEntrenamiento.splice(index, 1);
+      this.objEntrenamiento = this.miEntrenamiento;
+    }
+    delEntrenamiento(objeto: Entrenamiento, index: number) {
+      swal.fire({
+        title: '¿Desea confirmar?',
+        text: 'Se eliminará este registro permanentemente',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar'
+      }).then((result) => {
+        if (result.value) {
+          if (objeto.id === 0) {
+              this.delItemEntrenamiento(objeto, index);
+          } else {
+            // this.recetaService.deleteDetalle(detalle.id)
+            // .subscribe(resp => {
+            //   this.actulizar(this.receta);
+            // });
+          }
+        }
+      });
+    }
+    eliminarPrograma(objeto: Programa, index: number) {
+      swal.fire({
+        title: '¿Desea confirmar?',
+        text: 'Se eliminará este registro permanentemente',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar'
+      }).then((result) => {
+        if (result.value) {
+          if (objeto.id === 0) {
+              console.log(objeto);
+              this.delItemPrograma(index);
+          } else {
+            // this.recetaService.deleteDetalle(detalle.id)
+            // .subscribe(resp => {
+            //   this.actulizar(this.receta);
+            // });
+          }
+        }
+      });
+    }
+    setVisible() {
+        setTimeout(() => {
+          this.messageSuccess = false;
+          this.messageSuccess2 = false;
+       }, 1000);
+    }
+     reiniciaEditar() {
+    //   this.itemEntrenamiento = -1;
+    this.objPrograma = this.miPrograma;
+    this.detPrograma = new DetPrograma('', '', 1, 0);
+    this.miDetPrograma = [];
+    this.objDetPrograma = [];
+
+
+    this.programa = new Programa('', '', 0, 0, 0, [], 0);
+
+    this.miEntrenamiento[this.itemEntrenamiento].programa = this.objPrograma;
+    this.objEntrenamiento[this.itemEntrenamiento].programa = this.miEntrenamiento[this.itemEntrenamiento].programa;
+    console.log(this.objEntrenamiento);
+    this.objPrograma = [];
+    }
+    checkea() {
+      this.miCheck = true;
     }
 }

@@ -14,7 +14,7 @@ export class EjerciciosComponent implements OnInit {
 
   constructor(public ejercicioService: EjercicioService,
               public clasificacionService: ClasificacionService) { }
-    ejercicio: Ejercicio = new Ejercicio('', 0, '');
+    ejercicio: Ejercicio = new Ejercicio('', 0, '', '', 0);
     cargando = false;
     desde = 0;
     objeto: any[];
@@ -49,7 +49,7 @@ export class EjerciciosComponent implements OnInit {
     });
   }
   nuevo() {
-    this.ejercicio = new Ejercicio('', 0, '');
+    this.ejercicio = new Ejercicio('', 0, '', '', 0);
   }
   actulizar(ejercicio: Ejercicio) {
     console.log(ejercicio);

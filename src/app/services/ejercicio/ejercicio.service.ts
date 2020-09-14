@@ -52,4 +52,12 @@ export class EjercicioService {
         return resp.data;
       }));
     }
+    getClasificado( id: number ) {
+      const url = URL_SERVICIOS + '/api/ejercicios/get-ejercicio-clasificado/' + id;
+      return this.http.get(url);
+    }
+    getByID( id: number ) {
+      const url = URL_SERVICIOS + '/api/ejercicios/' + id;
+      return this.http.get(url);
+    }
 }

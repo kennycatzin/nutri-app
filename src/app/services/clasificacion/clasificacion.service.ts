@@ -59,5 +59,9 @@ export class ClasificacionService {
         return true;
       }));
     }
+    getClasificacionID( id: number) {
+      const url = URL_SERVICIOS + '/api/clasificaciones/' + id;
+      return this.http.get(url);
+    }
 }
 

@@ -16,9 +16,9 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs profile-tab" role="tablist">
             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#historial" role="tab">Historial clínico</a> </li>
-            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#home" role="tab">Gasto calórico</a> </li>
-            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Dieta</a> </li>
-            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Entrenamiento</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#gastoC" role="tab">Gasto calórico</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#diet" role="tab">Dieta</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#entrena" role="tab">Entrenamiento</a> </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -42,27 +42,27 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Proteinas</label>
                                     <input value="{{this.proteinas}}" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Carbohidratos</label>
                                     <input value="{{this.carbohidratos}}" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Grasas</label>
                                     <input value="{{this.grasas}}" name="grasas" type="number" class="form-control" placeholder="0" disabled>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Fibras</label>
                                     <input value="{{this.fibras}}" name="fibras" type="number" class="form-control" placeholder="0" disabled>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Total Calorias</label>
                                     <input value="{{this.totCal}}" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Agua</label>
                                     <input value="{{this.ltsAgua}}" name="agua" type="number" class="form-control" placeholder="0" disabled>
                                 </div>
@@ -86,23 +86,23 @@
                             <hr>
                             <h3 class="box-title">Análisis clínico</h3>
                             <div class="form-row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Colesterol</label>
                                     <input name="cantidad" type="number" class="form-control" placeholder="0" required>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Trigliceridos</label>
                                     <input name="cantidad" type="number" class="form-control" placeholder="0" required>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
                                     <label for="inputCity">Glucosa</label>
                                     <input name="cantidad" type="number" class="form-control" placeholder="0" required>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-lg-3 col-md-3 col-sm-6">
                                     <label for="inputCity">Presión arterial</label>
                                     <input name="cantidad" type="number" class="form-control" placeholder="0" required>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-lg-3 col-md-3 col-sm-6">
                                     <label for="inputCity">R. cardiaco %</label>
                                     <input name="cantidad" type="number" class="form-control" placeholder="0" required>
                                 </div>
@@ -122,14 +122,14 @@
                 </div>
             </div>
 
-            <div class="tab-pane " id="home" role="tabpanel ">
+            <div class="tab-pane " id="gastoC" role="tabpanel ">
                 <div class="card-body ">
                     <div class="form-row ">
-                        <div class="form-group col-10 ">
+                        <div class="form-group col-lg-10 col-md-9 col-sm-8">
                             <label for="inputCity ">Frecuencia cardiáca en reposo</label>
                             <input [(ngModel)]="fCardiacaReposo " name="fCardiacaReposo " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-2 ">
+                        <div class="form-group col-lg-2 col-md-3 col-sm-4">
                             <label for="inputCity ">Calcular</label>
                             <button (click)="calcular() " type="button " class="btn btn-info form-control text-white ">
                                 <i class="fas fa-plus-circle "></i>     
@@ -138,19 +138,19 @@
                     </div>
 
                     <div class="form-row ">
-                        <div class="form-group col-md-3 ">
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas de oficina</label>
                             <input [(ngModel)]="hOficina " name="hOficina " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-md-3 ">
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas en movimiento</label>
                             <input [(ngModel)]="hMovimiento " name="hMovimiento " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-md-3 ">
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas ejercicio</label>
                             <input [(ngModel)]="hEjercicio " name="hEjercicio " type="number " class="form-control " placeholder="0 " required>
                         </div>
-                        <div class="form-group col-md-3 ">
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas sueño</label>
                             <input [(ngModel)]="hSueno " name="hSueno " type="number " class="form-control " placeholder="0 " required>
                         </div>
@@ -158,7 +158,7 @@
                     <hr>
                     <div class="row ">
                         <!-- Column -->
-                        <div class="col-md-6 col-lg-4 col-xlg-2 ">
+                        <div class="col-lg-4 col-sm-12">
                             <div class="card ">
                                 <div class="box bg-info text-center ">
                                     <h1 class="font-light text-white ">{{ this.sesion.metabolismo_basal }}</h1>
@@ -169,7 +169,7 @@
                         <!-- Column -->
 
                         <!-- Column -->
-                        <div class="col-md-6 col-lg-4 col-xlg-2 ">
+                        <div class="col-lg-4 col-sm-12">
                             <div class="card ">
                                 <div class="box bg-success text-center ">
                                     <h1 class="font-light text-white ">{{ this.sesion.gasto_calorico }}</h1>
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                         <!-- Column -->
-                        <div class="col-md-6 col-lg-4 col-xlg-2 ">
+                        <div class="col-lg-4 col-sm-12">
                             <div class="card ">
                                 <div class="box bg-dark text-center ">
                                     <h1 class="font-light text-white ">{{ this.sesion.frecuencia_cardiaca }}</h1>
@@ -191,14 +191,14 @@
 
             </div>
             <!--second tab-->
-            <div class="tab-pane " id="profile" role="tabpanel">
+            <div class="tab-pane " id="diet" role="tabpanel">
                 <div class="card-body">
                     <div class="col-12 row">
-                        <div class="col-6 text-left">
+                        <div class="text-left col-lg-8 col-md-7 col-sm-12">
                             <h3 class="box-title">Panel de dieta</h3>
                         </div>
-                        <div class="col-6 text-right">
-                            <button (click)="nuevo()" type="button" class="btn btn-success align-self-auto" data-toggle="modal" data-target="#dieta">
+                        <div class="text-right col-lg-4 col-md-5 col-sm-12">
+                            <button (click)="nuevo()" type="button" class="btn btn-success form-group" data-toggle="modal" data-target="#dieta">
                                 Agregar comida
                                 <i class="fas fa-utensils"></i>        
                         </button>
@@ -206,14 +206,14 @@
                     </div>
                     <div class="col-12 row">
                         <!-- Items a por comida -->
-                        <div *ngFor="let comida of objetoComida; let i = index" class="col-4 card align-items-start">
+                        <div *ngFor="let comida of objetoComida; let i = index" class="col-lg-4 col-md-6 col-sm-12 card align-items-start">
                             <div class="card-body text-left col-12">
                                 <div class="row">
-                                    <div class="col-7 align-self-center">
+                                    <div class="col-lg-7 col-md-12 col-sm-12 align-self-center">
                                         <h5 class="card-title">{{ comida.nombre }}</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ comida.notas }}</h6>
                                     </div>
-                                    <div class="col-5 text-right">
+                                    <div class="col-lg-5 col-md-12 col-sm-12 text-lg-right text-sm-center text-md-left">
                                         <button (click)="editarComida(comida, i)" class="btn btn-outline-warning" data-toggle="modal" data-target="#dieta"><i class="fas fa-edit"></i></button>
                                         <button (click)="eliminarComida(comida, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
                                     </div>
@@ -234,63 +234,73 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane " id="settings" role="tabpanel">
+            <div class="tab-pane " id="entrena" role="tabpanel">
                 <div class="card-body ">
                     <div class="col-12 row">
-                        <div class="col-6 text-left">
+                        <div class="col-lg-6 col-sm-12 text-left">
                             <h3 class="box-title">Panel de entrenamiento</h3>
                         </div>
                     </div>
                     <div class="col-12 text-left">
-                        <div *ngFor="let semana of diasSemana" class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="{{semana.inl}}" [(ngModel)]="semana.check" [disabled]="semana.disab">
-                            <label class="form-check-label" for="{{semana.inl}}">{{semana.dia}}</label>
-                        </div>
+
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-lg-11 col-md-9 col-sm-8">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Notas</label>
+                                    <label for="exampleInputEmail1">Descripción</label>
                                     <input [(ngModel)]="entrenamiento.notas" name="notas" type="text" class="form-control rounded-3">
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <button (click)="addDia()" type="button" class="btn btn-success mt-4">
-                                    Agregar Dias
+                            <div class="col-lg-1 col-md-3 col-sm-4 form-group">
+                                <label for="exampleInputEmail1">Agregar</label>
+                                <button (click)="addDia()" type="button" class="btn btn-success form-control text-white">
                                     <i class="mdi mdi-dumbbell"></i>        
                                 </button>
                             </div>
                         </div>
+                        <br>
+                        <div *ngFor="let semana of diasSemana" class="form-check form-check-inline">
+                            <input (click)="checkea()" class="form-check-input" type="checkbox" id="{{semana.inl}}" [(ngModel)]="semana.check" [disabled]="semana.disab">
+                            <label class="form-check-label" for="{{semana.inl}}">{{semana.dia}}</label>
+                        </div>
                     </div>
                     <hr>
-                    <div class="col-12 row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 row">
                         <!-- Items a por comida -->
-                        <div *ngFor="let diasE of objEntrenamiento" class="col-6 card align-items-start">
+                        <div *ngFor="let diasE of objEntrenamiento; let i = index" class="col-lg-12 col-md-12 col-sm-12 card align-items-start">
                             <div class="card-body text-left col-12">
                                 <div class="row">
-                                    <div class="col-7 align-self-center">
-                                        <h5 class="card-title"> {{diasE.dias}} </h5>
-                                        <h6 class="card-subtitle mb-2 text-muted"> {{diasE.notas}} </h6>
+                                    <div class="col-lg-10 col-md-7 col-sm-12 align-self-center">
+                                        <h4 class="card-title"> {{diasE.dias}} </h4>
+                                        <h5 class="card-subtitle mb-2 text-muted"> {{diasE.notas}} </h5>
                                     </div>
-                                    <div class="col-5 text-right">
-                                        <button class="btn btn-outline-success" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-plus-square"></i></button>
-                                        <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    <div class="col-lg-2 col-md-5 col-sm-12 text-left row justify-content-around">
+                                        <button (click)="addEntrenamiento(diasE, i)" class="btn btn-outline-success" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-plus-square"></i></button>
+                                        <button (click)="delEntrenamiento(diasE, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
                                     </div>
                                 </div>
-                                <ul class="list-group">
+                                <ul *ngFor="let prog of diasE.programa; let i = index" class="list-group">
                                     <!-- Items por Alimento -->
-                                    <li class="list-group-item list-group-item-action active">
-                                        Circuito 1: (6 x 12) - 60 segundos de descanso
+                                    <li class="list-group-item list-group-item-action bg-light-info">
+                                        <div class="col-12 row">
+                                            <div class="col-lg-11 col-md-8 col-sm-12 text-left">
+                                                {{prog.nombre}}: ({{prog.vueltas}} x {{prog.repeticiones}}) - {{prog.descanso}} segundos de descanso
+                                            </div>
+                                            <div class="row justify-content-around col-lg-1 col-sm-12 col-md-4 text-lg-left text-md-left">
+                                                <a (click)="editarPrograma(prog, i)" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-edit text-warning"></i></a>
+                                                <a (click)="eliminarPrograma(prog, i)" class="ml-2"><i class="fas fa-trash text-danger"></i></a>
+
+                                                <!-- <button (click)="editarPrograma(prog, i)" class="btn btn-outline-warning" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-edit"></i></button>
+
+                                                <button (click)="eliminarPrograma(prog, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button> -->
+                                            </div>
+                                        </div>
                                     </li>
                                     <ul class="list-group">
                                         <!-- Items por Alimento -->
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            mov.laterlaes con mancuerna
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            embestidas con banco
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            sentadilla suiza con balon
+                                        <li *ngFor="let detProg of prog.det_programa" class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{detProg.ejercicio}}
+                                            <span class="badge badge-primary badge-pill">{{detProg.musculo}}</span>
+
                                         </li>
                                     </ul>
                                 </ul>
@@ -321,6 +331,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div *ngIf="messageSuccess" class="alert alert-success" role="alert">
+                    <a class="alert-link">Elemento agregado</a>. Continue agregando comidas
+                </div>
                 <div class="form-row">
                     <div class="form-group col-md-8">
                         <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
@@ -410,7 +423,7 @@
     </div>
 </div>
 
-<div class="modal fade bd-example-modal-lg" id="entrenamiento" tabindex="-1" role="dialog" aria-labelledby="entrenamiento" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="entrenamiento" tabindex="-1" role="dialog" aria-labelledby="entrenamiento" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -420,32 +433,35 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div *ngIf="messageSuccess2" class="alert alert-success" role="alert">
+                    <a class="alert-link">Elemento agregado</a>. Continue agregando ejercicios.
+                </div>
                 <div class="form-row">
                     <div class="form-group col-md-8">
                         <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nombre</label>
-                            <input name="nombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                            <input [(ngModel)]="programa.nombre" name="nombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Repeticiones</label>
-                                <input name="tiempo_coccion" type="number" class="form-control" placeholder="0" required>
+                                <input [(ngModel)]="programa.repeticiones" name="repeticiones" type="number" class="form-control" placeholder="0" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputState">Vueltas</label>
-                                <input name="tiempo_preparacion" type="number" class="form-control" placeholder="0" required>
+                                <input [(ngModel)]="programa.vueltas" name="vueltas" type="number" class="form-control" placeholder="0" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputZip">Descanso</label>
-                                <input name="total_calorias" type="number" class="form-control" placeholder="Segundos" required>
+                                <input [(ngModel)]="programa.descanso" name="descanso" type="number" class="form-control" placeholder="Segundos" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-md-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Observaciones</label>
-                            <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                            <textarea [(ngModel)]="programa.notas" name="notas" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -453,7 +469,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-5">
                         <label for="inputCity">Mùsculo</label>
-                        <select name="idUnidad" class="form-control">
+                        <select (change)="onSelectChangeMusculo($event.target.value)" name="idUnidad" class="form-control">
                             <option value="">SELECCIONE</option>
                             <option *ngFor="let musculo of misTiposEjercicios" [value]="musculo.id">
                                 {{musculo.nombre}}
@@ -461,15 +477,15 @@
                         </select> </div>
                     <div class="form-group col-md-5">
                         <label for="inputCity">Ejercicio</label>
-                        <select name="idUnidad" class="form-control">
+                        <select (change)="onSelectChangeEjercicio($event.target.value)" name="idUnidad" class="form-control">
                                 <option value="">SELECCIONE</option>
-                                <!-- <option *ngFor="let unidad of misUnidades" [value]="unidad.id">
-                                    {{unidad.nombre}}
-                                </option> -->
+                                <option *ngFor="let ejercicio of misEjercicios" [value]="ejercicio.id">
+                                    {{ejercicio.nombre}}
+                                </option>
                             </select>
                     </div>
                     <div class="form-group col-md-2 align-self-end">
-                        <button type="button" class="btn btn-primary mt-lg-4 ml-4">
+                        <button (click)="agregarEjercicio()" type="button" class="btn btn-primary mt-lg-4 ml-4">
                                 <i class="fas fa-plus-circle"></i>        
                             </button>
                     </div>
@@ -478,15 +494,15 @@
                     <table class="table color-table success-table">
                         <thead>
                             <tr>
-                                <th style=" width: 40%; ">Músculo</th>
-                                <th style=" width: 40%; ">Ejercio</th>
+                                <th style=" width: 25%; ">Músculo</th>
+                                <th style=" width: 55%; ">Ejercio</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let obj of objDetPrograma; let i = index">
                                 <td>{{obj.musculo}}</td>
-                                <td>{{obj.ejercicio_id}}</td>
+                                <td>{{obj.ejercicio}}</td>
                                 <td class="text-center"><a (click)="borrarDetPrograma(obj, i)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
                             </tr>
                         </tbody>
@@ -494,8 +510,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-info">Guardar</button>
+                <button (click)="reiniciaEditar()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="agregarPrograma()" type="submit" class="btn btn-info">Guardar</button>
             </div>
         </div>
     </div>

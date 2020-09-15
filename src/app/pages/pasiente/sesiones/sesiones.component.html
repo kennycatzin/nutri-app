@@ -30,7 +30,10 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Kg. Peso</label>
-                                    <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
+                                    <div class="input-group">
+                                        <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
+                                        <span class="input-group-addon" id="basic-addon2">KG</span>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-8">
                                     <label class="col-sm-12">Tipo de cuerpo</label>
@@ -72,7 +75,10 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Grasa %</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                    <div class="input-group">
+                                        <input name="pctGrasa" type="number" class="form-control" placeholder="0" required>
+                                        <span class="input-group-addon" id="basic-addon2">%</span>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">IMC</label>
@@ -140,19 +146,31 @@
                     <div class="form-row ">
                         <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas de oficina</label>
-                            <input [(ngModel)]="hOficina " name="hOficina " type="number " class="form-control " placeholder="0 " required>
+                            <div class="input-group">
+                                <input [(ngModel)]="hOficina" name="hOficina " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
                         </div>
                         <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas en movimiento</label>
-                            <input [(ngModel)]="hMovimiento " name="hMovimiento " type="number " class="form-control " placeholder="0 " required>
+                            <div class="input-group">
+                                <input [(ngModel)]="hMovimiento" name="hMovimiento " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
                         </div>
                         <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas ejercicio</label>
-                            <input [(ngModel)]="hEjercicio " name="hEjercicio " type="number " class="form-control " placeholder="0 " required>
+                            <div class="input-group">
+                                <input [(ngModel)]="hEjercicio" name="hEjercicio " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
                         </div>
                         <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label for="inputCity ">Horas sueño</label>
-                            <input [(ngModel)]="hSueno " name="hSueno " type="number " class="form-control " placeholder="0 " required>
+                            <div class="input-group">
+                                <input [(ngModel)]="hSueno" name="hSueno " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -454,7 +472,10 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputZip">Descanso</label>
-                                <input [(ngModel)]="programa.descanso" name="descanso" type="number" class="form-control" placeholder="Segundos" required>
+                                <div class="input-group">
+                                    <input [(ngModel)]="programa.descanso" name="descanso" type="number" class="form-control" placeholder="Segundos" required>
+                                    <span class="input-group-addon" id="basic-addon2">Seg</span>
+                                </div>
                             </div>
                         </div>
                     </div>

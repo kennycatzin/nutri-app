@@ -5,7 +5,7 @@
 
         </div>
         <div class="col-6 text-right">
-            <button (click)="nuevo()" type="button" class="btn btn-danger align-self-auto" data-toggle="modal" data-target="#exampleModal">
+            <button (click)="nuevo()" type="button" class="btn btn-success align-self-auto" data-toggle="modal" data-target="#exampleModal">
                 Agregar receta
                 <i class="fas fa-utensils"></i>        
         </button>
@@ -49,8 +49,30 @@
     </div>
 </div>
 
-
 <div class="row">
+    <div *ngFor="let obj of objeto; let i = index" class="card col-lg-4 col-md-6 col-sm-12">
+        <img width="250px" height="230px" class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQABqbeb0zFIp21epTbvRR57RlSEOy9CFcmJg&usqp=CAU" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{obj.nombre}}</h5>
+            <p class="card-text">{{obj.pasos}}</p>
+            <p class="card-text"><small class="text-muted">{{obj.dificultad}}</small></p>
+            <div class="col-4 row justify-content-around align-self-center">
+                <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a> <a (click)="borrar(obj)"><i class="fas fa-trash-alt text-danger"></i></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="col-12 row text-center">
+    <div class="col-6">
+        <button (click)="cambiarDesde(-6)" class="btn btn-secondary">Anteriores</button>
+    </div>
+    <div class="col-6">
+        <button (click)="cambiarDesde(6)" class="btn btn-secondary">Siguientes</button>
+    </div>
+</div>
+
+<!-- <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -73,7 +95,7 @@
                                 <td>{{obj.nombre}}</td>
                                 <td>{{obj.dificultad}}</td>
                                 <td>{{obj.total_calorias}}</td>
-                                <td class="row justify-content-around"><a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a> <a (click)="borrar(obj)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
+                                <td class="row justify-content-around"> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -91,14 +113,14 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo elemento</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Receta</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -137,11 +159,17 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Tiempo Cocción</label>
-                                    <input [(ngModel)]="receta.tiempo_coccion" name="tiempo_coccion" type="number" class="form-control" placeholder="Minutos" required>
+                                    <div class="input-group">
+                                        <input [(ngModel)]="receta.tiempo_coccion" name="tiempo_coccion" type="number" class="form-control" placeholder="Minutos" required>
+                                        <span class="input-group-addon" id="basic-addon2">Min</span>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Tiempo preparación</label>
-                                    <input [(ngModel)]="receta.tiempo_preparacion" name="tiempo_preparacion" type="number" class="form-control" placeholder="Minutos" required>
+                                    <div class="input-group">
+                                        <input [(ngModel)]="receta.tiempo_preparacion" name="tiempo_preparacion" type="number" class="form-control" placeholder="Minutos" required>
+                                        <span class="input-group-addon" id="basic-addon2">Min</span>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="inputZip">Total calorías</label>

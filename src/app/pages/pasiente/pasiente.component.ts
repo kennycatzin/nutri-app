@@ -66,7 +66,7 @@ guardarCatalogo(f: NgForm) {
     return;
   }
   console.log(this.pasiente);
-  if (this.pasiente.id) {
+  if (this.pasiente.id > 0) {
     this.pasienteService.actualizar(this.pasiente.id, this.pasiente)
     .subscribe( objeto => {
       console.log(objeto);
@@ -89,6 +89,7 @@ traerDatos() {
     console.log(this.objeto);
     this.totalRegistros = data.numero;
     this.cargando = false;
+    this.pasiente = new Pasiente('', '', '', '', '', 0, '', '', '', 0);
   });
 }
 busqueda(termino: string) {

@@ -40,7 +40,7 @@ misAlimentos: Alimento[];
 tipoAlimentos: Clasificacion;
 misTiposAlimentos: Clasificacion[];
 
-idAlimento = 1;
+idAlimento = 0;
 idUnidad = 1;
 cantidad = 1;
 calorias = 1;
@@ -59,7 +59,7 @@ sumCalorias = 0;
     this.getTipoAlimentos();
   }
   reiniciarValores() {
-    this.idAlimento = 1;
+    this.idAlimento = 0;
     this.idUnidad = 1;
     this.cantidad = 1;
     this.calorias = 1;
@@ -165,7 +165,7 @@ sumCalorias = 0;
     this.traerDatos();
   }
   guardarCatalogo(f: NgForm) {
-    if ( f.invalid ) {
+    if ( f.invalid || this.miDetalle.length === 0) {
       return;
     }
     this.receta.alimentos = this.miDetalle;
@@ -214,7 +214,11 @@ sumCalorias = 0;
       this.objetoDetalle = this.miDetalle;
   }
   agregarAlimento() {
-    this.showID(this.idAlimento);
+    if (this.idAlimento > 0) {
+      this.showID(this.idAlimento);
+    } else {
+      return false;
+    }
   }
   delItem(num: number) {
     let num2 = num - 1;

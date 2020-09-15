@@ -1,10 +1,10 @@
 <div class="row page-titles">
     <div class="col-12 row">
         <div class="col-6 text-left">
-            <h3 class="text-themecolor">Módulo de pasientes</h3>
+            <h3 class="text-themecolor">Módulo de pacientes</h3>
         </div>
         <div class="col-6 text-right">
-            <button (click)="nuevo()" type="button" class="btn btn-danger align-self-auto" data-toggle="modal" data-target="#exampleModal">
+            <button (click)="nuevo()" type="button" class="btn btn-success align-self-auto" data-toggle="modal" data-target="#exampleModal">
                 Agregar pasiente
                 <i class="fas fa-play-circle"></i>     
         </button>
@@ -21,59 +21,47 @@
         </div>
     </div>
 </div>
-
 <div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Catálogo de pasientes</h4>
-                <div class="table-responsive">
-                    <table class="table color-table info-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Imagen</th>
-                                <th>Nombre</th>
-                                <th>Edad</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let obj of objeto; let i = index">
-                                <td>{{i+1}}</td>
-                                <td></td>
-                                <td>{{obj.nombres}} {{obj.apellidopaterno}} {{obj.apellidomaterno}}</td>
-                                <td>{{calcularEdad(obj.fechanacimiento)}} años</td>
-                                <td class="row justify-content-around">
-                                    <a [routerLink]="['/paciente/perfil', obj.id]"><i class="fas fa-rocket"></i></a>
-                                    <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a>
-                                    <a (click)="borrar(obj)"><i class=" fas fa-trash-alt text-danger"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="col-12 row text-center">
-                        <div class="col-6">
-                            <button (click)="cambiarDesde(-6)" class="btn btn-secondary">Anteriores</button>
-
-                        </div>
-                        <div class="col-6">
-                            <button (click)="cambiarDesde(6)" class="btn btn-secondary">Siguientes</button>
-                        </div>
-                    </div>
+    <!-- .col -->
+    <div *ngFor="let obj of objeto; let i = index" class="col-md-6 col-lg-6 col-xlg-4">
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-md-4 col-lg-3 text-center">
+                    <a><img src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png" alt="user" class="img-circle img-responsive"></a>
                 </div>
+                <div class="col-md-8 col-lg-9">
+                    <h4 class="box-title m-b-0">{{obj.nombres}} {{obj.apellidopaterno}} {{obj.apellidomaterno}}</h4> <small>{{obj.correo}}</small>
+                    <address>
+                        {{obj.objetivo}}
+                        <br/>
+                        <abbr>Edad: </abbr> {{calcularEdad(obj.fechanacimiento)}} años
+                    </address>
+                </div>
+            </div>
+            <div class="col-4 row justify-content-around align-self-center">
+                <a [routerLink]="['/paciente/perfil', obj.id]"><i class="fas fa-rocket"></i></a>
+                <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a>
+                <a (click)="borrar(obj)"><i class=" fas fa-trash-alt text-danger"></i></a>
             </div>
         </div>
     </div>
 
 </div>
+<div class="col-12 row text-center">
+    <div class="col-6">
+        <button (click)="cambiarDesde(-6)" class="btn btn-secondary">Anteriores</button>
 
+    </div>
+    <div class="col-6">
+        <button (click)="cambiarDesde(6)" class="btn btn-secondary">Siguientes</button>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo elemento</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Paciente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -105,7 +93,10 @@
                         <div class="row">
                             <div class="col">
                                 <label for="exampleInputEmail1">Estatura</label>
-                                <input [(ngModel)]="pasiente.estatura" name="estatura" type="number" class="form-control" placeholder="0" required>
+                                <div class="input-group">
+                                    <input [(ngModel)]="pasiente.estatura" name="estatura" type="number" class="form-control" placeholder="0" required>
+                                    <span class="input-group-addon" id="basic-addon2">cm</span>
+                                </div>
                             </div>
                             <div class="col">
                                 <label for="exampleInputEmail1">Fecha de nacimiento</label>
@@ -151,3 +142,48 @@
         </div>
     </div>
 </div>
+<!-- <div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Catálogo de pasientes</h4>
+                <div class="table-responsive">
+                    <table class="table color-table info-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of objeto; let i = index">
+                                <td>{{i+1}}</td>
+                                <td></td>
+                                <td>{{obj.nombres}} {{obj.apellidopaterno}} {{obj.apellidomaterno}}</td>
+                                <td>{{calcularEdad(obj.fechanacimiento)}} años</td>
+                                <td class="row justify-content-around">
+                                    <a [routerLink]="['/paciente/perfil', obj.id]"><i class="fas fa-rocket"></i></a>
+                                    <a data-toggle="modal" data-target="#exampleModal" (click)="actulizar(obj)"><i class="fas fa-edit text-warning"></i></a>
+                                    <a (click)="borrar(obj)"><i class=" fas fa-trash-alt text-danger"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-12 row text-center">
+                        <div class="col-6">
+                            <button (click)="cambiarDesde(-6)" class="btn btn-secondary">Anteriores</button>
+
+                        </div>
+                        <div class="col-6">
+                            <button (click)="cambiarDesde(6)" class="btn btn-secondary">Siguientes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> -->

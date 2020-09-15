@@ -16,9 +16,10 @@ export class AlimentosComponent implements OnInit {
 
   constructor(public alimentoService: AlimentoService,
               public clasificacionService: ClasificacionService) { }
-alimento: Alimento = new Alimento('', '', '', '', 0, '');
+alimento: Alimento = new Alimento('', 0, 0, 0, 0, 0);
 cargando = false;
 desde = 0;
+
 objeto: Alimento[];
 totalRegistros = 0;
 clasificaciones: Clasificacion;
@@ -55,8 +56,7 @@ totalCalorias = 0;
     });
   }
   nuevo() {
-    this.alimento = new Alimento('', '', '', '', 0, '');
-
+    this.alimento = new Alimento('', 0, 0, 0, 0, 0, 0);
   }
   actulizar(alimento: Alimento) {
     console.log(alimento);
@@ -97,6 +97,8 @@ totalCalorias = 0;
       console.log(this.objeto);
       this.totalRegistros = data.numero;
       this.cargando = false;
+      this.totalCalorias = 0;
+      this.alimento = new Alimento('', 0, 0, 0, 0, 0, 0);
     });
   }
   busqueda(termino: string) {
@@ -124,5 +126,6 @@ totalCalorias = 0;
     this.totalCalorias = (Number(this.alimento.carbohidratos) * 4) + (Number(this.alimento.proteinas) * 4);
     this.totalCalorias += (Number(this.alimento.grasas) * 9);
     this.totalCalorias = Math.round(this.totalCalorias * 1000) / 1000;  // 55.6
+    this.alimento.calorias = this.totalCalorias;
   }
 }

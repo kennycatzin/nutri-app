@@ -1,11 +1,11 @@
 export class Alimento {
     constructor(
         public nombre: string,
-        public proteinas: string,
-        public carbohidratos: string,
-        public grasas: string,
+        public proteinas: number,
+        public carbohidratos: number,
+        public grasas: number,
         public calorias: number,
-        public clasificacion_id: string,
+        public clasificacion_id: number,
         public id?: number
     ) {
     }

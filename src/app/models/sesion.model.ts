@@ -1,6 +1,7 @@
 
 import { AnaClinico } from './anaclinico.model';
 import { Dieta } from './dieta.model';
+import { Entrenamiento } from './entrenamiento.model';
 
 export class Sesion {
     constructor(
@@ -8,7 +9,6 @@ export class Sesion {
         public imc: number,
         public peso: number,
         public pctgrasa: number,
-        public fecha: string,
         public masa_muscular: number,
         public metabolismo_basal: number,
         public gasto_calorico: number,
@@ -17,6 +17,7 @@ export class Sesion {
         public paciente_id: number,
         public ana_clinico: AnaClinico,
         public dieta: Dieta,
+        public entrenamiento: Entrenamiento,
         public id?: number
     ) {
     }

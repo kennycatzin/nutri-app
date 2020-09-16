@@ -21,99 +21,100 @@
             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#entrena" role="tab">Entrenamiento</a> </li>
         </ul>
         <!-- Tab panes -->
+        <!-- <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarCatalogo(f)"> -->
         <div class="tab-content">
             <div class="tab-pane active" id="historial" role="tabpanel">
                 <div class="card-body">
-                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarCatalogo(f)">
-                        <div class="modal-body">
-                            <h3 class="box-title">Alimentación</h3>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Kg. Peso</label>
-                                    <div class="input-group">
-                                        <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
-                                        <span class="input-group-addon" id="basic-addon2">KG</span>
-                                    </div>
+
+                    <div class="modal-body">
+                        <h3 class="box-title">Alimentación</h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Kg. Peso</label>
+                                <div class="input-group">
+                                    <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
+                                    <span class="input-group-addon" id="basic-addon2">KG</span>
                                 </div>
-                                <div class="form-group col-md-8">
-                                    <label class="col-sm-12">Tipo de cuerpo</label>
-                                    <select class="form-control form-control-line">
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label class="col-sm-12">Tipo de cuerpo</label>
+                                <select [(ngModel)]="sesion.tipo_cuerpo" value="{{sesion.tipo_cuerpo}}" class="form-control form-control-line">
                                     <option>Ectomorfo</option>
                                     <option>Mesomorfo</option>
                                     <option>Endeformo</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Proteinas</label>
+                                <input [(ngModel)]="proteinas" value="" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Carbohidratos</label>
+                                <input [(ngModel)]="carbohidratos" value="" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Grasas</label>
+                                <input [(ngModel)]="grasas" value="" name="grasas" type="grasas" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Fibras</label>
+                                <input [(ngModel)]="fibras" value="" name="fibras" type="fibras" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Total Calorias</label>
+                                <input [(ngModel)]="totCal" value="" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Agua</label>
+                                <input [(ngModel)]="ltsAgua" value="" name="agua" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                        </div>
+                        <hr>
+                        <h3 class="box-title">Historial</h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Grasa %</label>
+                                <div class="input-group">
+                                    <input [(ngModel)]="sesion.pctgrasa" name="pctGrasa" type="number" class="form-control" placeholder="0" required>
+                                    <span class="input-group-addon" id="basic-addon2">%</span>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Proteinas</label>
-                                    <input value="{{this.proteinas}}" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Carbohidratos</label>
-                                    <input value="{{this.carbohidratos}}" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Grasas</label>
-                                    <input value="{{this.grasas}}" name="grasas" type="number" class="form-control" placeholder="0" disabled>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Fibras</label>
-                                    <input value="{{this.fibras}}" name="fibras" type="number" class="form-control" placeholder="0" disabled>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Total Calorias</label>
-                                    <input value="{{this.totCal}}" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Agua</label>
-                                    <input value="{{this.ltsAgua}}" name="agua" type="number" class="form-control" placeholder="0" disabled>
-                                </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">IMC</label>
+                                <input [(ngModel)]="sesion.imc" name="cantidad" type="number" class="form-control" placeholder="0" required>
                             </div>
-                            <hr>
-                            <h3 class="box-title">Historial</h3>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Grasa %</label>
-                                    <div class="input-group">
-                                        <input name="pctGrasa" type="number" class="form-control" placeholder="0" required>
-                                        <span class="input-group-addon" id="basic-addon2">%</span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">IMC</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">MM</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">MM</label>
+                                <input [(ngModel)]="sesion.masa_muscular" name="cantidad" type="number" class="form-control" placeholder="0" required>
                             </div>
-                            <hr>
-                            <h3 class="box-title">Análisis clínico</h3>
-                            <div class="form-row">
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Colesterol</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Trigliceridos</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-3 col-sm-6">
-                                    <label for="inputCity">Glucosa</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-6">
-                                    <label for="inputCity">Presión arterial</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-6">
-                                    <label for="inputCity">R. cardiaco %</label>
-                                    <input name="cantidad" type="number" class="form-control" placeholder="0" required>
-                                </div>
+                        </div>
+                        <hr>
+                        <h3 class="box-title">Análisis clínico</h3>
+                        <div class="form-row">
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Colesterol</label>
+                                <input [(ngModel)]="anaClinico.colesterol" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Trigliceridos</label>
+                                <input [(ngModel)]="anaClinico.trigliceridos" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Glucosa</label>
+                                <input [(ngModel)]="anaClinico.glucosa" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-6">
+                                <label for="inputCity">Presión arterial</label>
+                                <input [(ngModel)]="anaClinico.presionarterial" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-6">
+                                <label for="inputCity">R. cardiaco %</label>
+                                <input [(ngModel)]="anaClinico.pctritmocardiaco" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
 
-                                <!-- <div class="col-12 row">
+                            <!-- <div class="col-12 row">
                                     <div class="col-6 text-right">
                                     </div>
                                     <div class="col-6 text-right">
@@ -122,9 +123,8 @@
                                     </div>
                                 </div> -->
 
-                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -133,12 +133,12 @@
                     <div class="form-row ">
                         <div class="form-group col-lg-10 col-md-9 col-sm-8">
                             <label for="inputCity ">Frecuencia cardiáca en reposo</label>
-                            <input [(ngModel)]="fCardiacaReposo " name="fCardiacaReposo " type="number " class="form-control " placeholder="0 " required>
+                            <input [(ngModel)]="fCardiacaReposo" name="fCardiacaReposo " type="number " class="form-control " placeholder="0 " required>
                         </div>
                         <div class="form-group col-lg-2 col-md-3 col-sm-4">
                             <label for="inputCity ">Calcular</label>
                             <button (click)="calcular() " type="button " class="btn btn-info form-control text-white ">
-                                <i class="fas fa-plus-circle "></i>     
+                                <i class="fas fa-plus-circle"></i>     
                         </button>
                         </div>
                     </div>
@@ -334,9 +334,10 @@
                 </div>
             </div>
             <div class="modal-footer ">
-                <button type="submit " class="btn btn-info ">Guardar</button>
+                <button (click)="guardarSesion()" type="submit " class="btn btn-info ">Guardar</button>
             </div>
         </div>
+        <!-- </form> -->
     </div>
 </div>
 <div class="modal fade bd-example-modal-lg" id="dieta" tabindex="-1" role="dialog" aria-labelledby="dieta" aria-hidden="true">

@@ -20,6 +20,7 @@ import { Programa } from '../../../models/programa.model';
 import { DetPrograma } from '../../../models/detallePrograma.model';
 import { Ejercicio } from '../../../models/ejercicio.model';
 import { EjercicioService } from '../../../services/ejercicio/ejercicio.service';
+import { SesionService } from '../../../services/sesion/sesion.service';
 
 
 
@@ -81,7 +82,8 @@ export class SesionesComponent implements OnInit {
              public clasificacionService: ClasificacionService,
              public unidadService: UnidadService,
              public alimentoService: AlimentoService,
-             public ejercicioService: EjercicioService) {
+             public ejercicioService: EjercicioService,
+             public sesionService: SesionService) {
                }
 
   sesionID = 0;
@@ -114,9 +116,9 @@ export class SesionesComponent implements OnInit {
 
 
   paciente: Pasiente;
-  anaClinico: AnaClinico = new AnaClinico(0, 0, 0, 0, 0, 0);
+  anaClinico: AnaClinico = new AnaClinico(0, 0, 0, 0, 0, 0, 0);
 
-  sesion: Sesion = new Sesion(0, 0, 0, 0, '', 0, 0, 0, '0 / 0', '', this.pacienteID, this.anaClinico, this.dieta, 0);
+  sesion: Sesion = new Sesion(0, 0, 0, 0, 0, 0, 0, '0 / 0', '', this.pacienteID, this.anaClinico, this.dieta, this.entrenamiento, 0);
 
   clasificaciones: Clasificacion;
 
@@ -641,5 +643,20 @@ delItem(num: number) {
     }
     checkea() {
       this.miCheck = true;
+    }
+    guardarCatalogo(f) {
+      console.log('guardando');
+    }
+    guardarSesion() {
+      this.sesion = new Sesion(Number(this.sesionID), this.sesion.imc, this.kgpeso, this.sesion.pctgrasa,
+        this.sesion.masa_muscular, this.sesion.metabolismo_basal, this.sesion.gasto_calorico, this.sesion.frecuencia_cardiaca,
+        this.sesion.tipo_cuerpo, Number(this.pacienteID), this.anaClinico, this.dieta, this.entrenamiento, Number(this.sesionID));
+      // console.log(this.sesion);
+      this.sesionService.guardarSesion( this.sesion )
+          .subscribe( objeto => {
+            // this.nuevo();
+            // this.traerDatos();
+            // this.reiniciarValores();
+        });
     }
 }

@@ -26,7 +26,7 @@ export class PasienteService {
         return resp.data;
       }), catchError(err => {
         swal.fire(err.error.mensaje,  'Ha ocurrido un error', 'error');
-        return Observable.throw(err);
+        return throwError(err);
       }));
 
     }

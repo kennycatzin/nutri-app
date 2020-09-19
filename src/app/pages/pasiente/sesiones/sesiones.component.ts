@@ -5,6 +5,7 @@ import { Pasiente } from 'src/app/models/pasiente.model';
 import { Sesion } from '../../../models/sesion.model';
 import { AnaClinico } from '../../../models/anaclinico.model';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 import { DetalleAlimento } from 'src/app/models/detalleReceta.model';
 import { AlimentoService } from 'src/app/services/alimento/alimento.service';
@@ -78,6 +79,7 @@ export class SesionesComponent implements OnInit {
     },
   ];
  constructor(private activatedRoute: ActivatedRoute,
+             public router: Router,
              private pacienteService: PasienteService,
              public clasificacionService: ClasificacionService,
              public unidadService: UnidadService,
@@ -118,7 +120,8 @@ export class SesionesComponent implements OnInit {
   paciente: Pasiente;
   anaClinico: AnaClinico = new AnaClinico(0, 0, 0, 0, 0, 0, 0);
 
-  sesion: Sesion = new Sesion(0, 0, 0, 0, 0, 0, 0, '0 / 0', '', this.pacienteID, this.anaClinico, this.dieta, this.entrenamiento, 0);
+  sesion: Sesion = new Sesion(0, 0, 0, 0, 0, 0, 0, '0 / 0', '', this.pacienteID,
+  this.anaClinico, this.dieta, this.objEntrenamiento, '', '', 0);
 
   clasificaciones: Clasificacion;
 
@@ -180,6 +183,11 @@ export class SesionesComponent implements OnInit {
   messageSuccess = false;
   messageSuccess2 = false;
   miCheck = false;
+
+  isDisabled = false;
+  isOn = true;
+
+  cerrar = false;
 
     ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id, paciente_id}) => this.cargarSesion(id, paciente_id));
@@ -246,7 +254,7 @@ export class SesionesComponent implements OnInit {
   }
   agregarAlimento() {
     if ( this.idAlimento > 0) {
-          this.showID(this.idAlimento);
+      this.showID(this.idAlimento);
     } else {
       return false;
     }
@@ -293,6 +301,15 @@ export class SesionesComponent implements OnInit {
     this.objDetPrograma = this.miDetPrograma;
   }
   continnuar() {
+    if (this.miDetalle.length > 0) {
+      for (let i = 0; i <= this.miDetalle.length - 1; i++) {
+        if (this.idAlimento === this.miDetalle[i].alimento_id && this.idUnidad === this.miDetalle[i].unidad_id) {
+          this.miDetalle[i].cantidad += this.cantidad;
+          return true;
+        }
+        // console.log(this.miDetalle[i].alimento_id);
+      }
+    }
     const alimentos = new DetalleAlimento(
     this.cantidad, this.idUnidad, this.unidad, this.comida.id,
     this.alimento, this.idAlimento, this.calorias, 0);
@@ -324,10 +341,9 @@ export class SesionesComponent implements OnInit {
   }
   agregarPrograma() {
     if ( this.miDetPrograma.length <= 0 || this.programa.nombre.length < 3 ||
-       this.programa.repeticiones < 1 || this.programa.vueltas < 1 || this.programa.descanso < 1) {
+       this.programa.repeticiones < 1 || this.programa.vueltas < 1 ) {
       return false;
   }
-    console.log(this.itemEditarPrograma);
     if (this.itemEditarPrograma >= 0) {
       this.programa[this.itemEditarPrograma] = this.programa;
     } else {
@@ -396,9 +412,30 @@ delItem(num: number) {
     //     this.reiniciarValores();
     // });
   }
+  traerDatos() {
+    this.sesionService.getInfoSesion(this.sesionID)
+    .subscribe( (data: any) => {
+      console.log(data);
+      this.sesion = data.data[0];
+      this.anaClinico = data.data[0].ana_clinico;
+      this.objetoComida = data.data[0].dieta.comidas;
+      this.miComida = this.objetoComida;
+      this.objDieta = data.data[0].dieta;
+      this.objEntrenamiento = data.data[0].entrenamiento;
+      this.miEntrenamiento = this.objEntrenamiento;
+      this.objPrograma = data.data[0].programa;
+      this.miPrograma = this.objPrograma;
+      // this.objDetPrograma = this.programa.det_programa;
+      this.entrenamiento = data.data[0].entrenamiento;
+      this.dieta = data.data[0].dieta;
+    });
+  }
   cargarSesion( id: number, pasienteID: number ) {
     this.sesionID = id;
     this.pacienteID = pasienteID;
+    if ( id > 0) {
+      this.traerDatos();
+    }
   }
   traerPaciente() {
       this.pacienteService.getPaciente(this.pacienteID)
@@ -438,17 +475,17 @@ delItem(num: number) {
       return false;
     }
     if ( this.genero === 'MASCULINO') {
-      mb = 66 + (13.7 * this.kgpeso) + (5 * this.estatura) - (6.8 * this.edad);
+      mb = 66 + (13.7 * this.sesion.peso) + (5 * this.estatura) - (6.8 * this.edad);
       mb = Math.round(mb);
       this.sesion.metabolismo_basal =  mb;
     } else if ( this.genero === 'FEMENINO' ) {
-      mb = 655 + (9.6 * this.kgpeso) + (1.7 * this.estatura) - (4.7 * this.edad);
+      mb = 655 + (9.6 * this.sesion.peso) + (1.7 * this.estatura) - (4.7 * this.edad);
       this.sesion.metabolismo_basal =  Math.round(mb);
     }
     let gc = ((1.3 * mb) * this.hOficina / 24) + ((1.9 * mb) * this.hMovimiento / 24) + ((2.5 * mb) * this.hEjercicio / 24);
     gc += ((1.1 * mb) * this.hSueno / 24);
     gc = Math.round(gc);
-    this.sesion.gasto_calorico = gc;
+    this.sesion.gasto_calorico_total = gc;
     let fcUno = ((220 - this.edad) - this.fCardiacaReposo) * 0.65 + Number(this.fCardiacaReposo);
     fcUno = Math.round(fcUno);
     let fcDos = ((220 - this.edad) - this.fCardiacaReposo) * 0.75 + Number(this.fCardiacaReposo);
@@ -503,8 +540,7 @@ delItem(num: number) {
       this.objPrograma = this.miPrograma;
     }
     addDia() {
-      console.log(this.miCheck);
-      if (this.entrenamiento.notas.length < 4 || this.miCheck === false) {
+      if (this.entrenamiento.descripcion.length < 4 || this.miCheck === false) {
         return false;
       }
       let diaEntrena = '';
@@ -519,12 +555,13 @@ delItem(num: number) {
         }
       }
       diaEntrena = diaEntrena.substring(-3);
-      const entrenamiento = new Entrenamiento( diaEntrena.substring(-3), this.entrenamiento.notas, arreglo, [], 0);
+      const entrenamiento = new Entrenamiento( diaEntrena.substring(-3),
+      this.entrenamiento.descripcion, arreglo, [], 0);
       this.miEntrenamiento.push(entrenamiento);
 
       this.objEntrenamiento = this.miEntrenamiento;
       console.log(this.objEntrenamiento);
-      this.entrenamiento = new Entrenamiento('', '', [], [], 0);
+      this.entrenamiento = new Entrenamiento('', this.entrenamiento.descripcion, [], [], 0);
       this.miCheck = false;
     }
     borrarDetPrograma(detPrograma: DetPrograma, index: number) {
@@ -554,10 +591,8 @@ delItem(num: number) {
       this.programa = new Programa('', '', 0, 0, 0, this.objDetPrograma, 0);
     }
     addEntrenamiento(objeto: Entrenamiento, index: number) {
-      console.log(index);
       this.itemEditarPrograma = -1;
       if (this.itemEntrenamiento === index) {
-        console.log('edita');
         this.miPrograma = objeto.programa;
       } else {
         this.miPrograma = [];
@@ -648,15 +683,45 @@ delItem(num: number) {
       console.log('guardando');
     }
     guardarSesion() {
-      this.sesion = new Sesion(Number(this.sesionID), this.sesion.imc, this.kgpeso, this.sesion.pctgrasa,
-        this.sesion.masa_muscular, this.sesion.metabolismo_basal, this.sesion.gasto_calorico, this.sesion.frecuencia_cardiaca,
-        this.sesion.tipo_cuerpo, Number(this.pacienteID), this.anaClinico, this.dieta, this.entrenamiento, Number(this.sesionID));
-      // console.log(this.sesion);
-      this.sesionService.guardarSesion( this.sesion )
+      swal.fire({
+        title: '¿Seguro de enviar la información?',
+        text: 'Se estará enviando un correo al paciente con su programa',
+        showCancelButton: true,
+        confirmButtonColor: '#5cb85c',
+        cancelButtonColor: '#f0ad4e',
+        confirmButtonText: 'Si, Enviar',
+        onAfterClose: () => {
+          swal.showLoading();
+        },
+      }).then((result) => {
+        if (result.value) {
+          this.cerrar = true;
+          this.dieta.comidas = this.objetoComida;
+          this.programa.det_programa = this.objDetPrograma;
+          this.entrenamiento.programa = this.objPrograma;
+          console.log(this.dieta);
+          this.sesion = new Sesion(Number(this.sesionID), this.sesion.imc, this.sesion.peso, this.sesion.pctgrasa,
+                      this.sesion.masa_muscular, this.sesion.metabolismo_basal, this.sesion.gasto_calorico_total,
+                      this.sesion.frecuencia_cardiaca, this.sesion.tipo_cuerpo, Number(this.pacienteID), this.anaClinico,
+                      this.dieta, this.objEntrenamiento, this.sesion.notas_dieta,
+                      this.sesion.notas_entrenamiento, Number(this.sesionID));
+          this.sesionService.guardarSesion( this.sesion )
           .subscribe( objeto => {
+            this.router.navigate(['/paciente/perfil/', this.pacienteID]);
             // this.nuevo();
             // this.traerDatos();
             // this.reiniciarValores();
         });
+        } else {
+          return this.cerraModal();
+        }
+      });
+
+    }
+    cerraModal() {
+      console.log('llego');
+      this.cerrar = true;
+      swal.close();
+      return true;
     }
 }

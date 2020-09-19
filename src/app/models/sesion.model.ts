@@ -11,14 +11,16 @@ export class Sesion {
         public pctgrasa: number,
         public masa_muscular: number,
         public metabolismo_basal: number,
-        public gasto_calorico: number,
+        public gasto_calorico_total: number,
         public frecuencia_cardiaca: string,
         public tipo_cuerpo: string,
         public paciente_id: number,
         public ana_clinico: AnaClinico,
         public dieta: Dieta,
-        public entrenamiento: Entrenamiento,
-        public id?: number
+        public entrenamiento: Entrenamiento[],
+        public notas_dieta: string,
+        public notas_entrenamiento: string,
+        public id: number
     ) {
     }
 }

@@ -207,11 +207,20 @@ sumCalorias = 0;
   //   });
   // }
   continnuar() {
-      const alimentos = new DetalleAlimento(
+    if (this.miDetalle.length > 0) {
+      for (let i = 0; i <= this.miDetalle.length - 1; i++) {
+        if (this.idAlimento === this.miDetalle[i].alimento_id && this.idUnidad === this.miDetalle[i].unidad_id) {
+          this.miDetalle[i].cantidad += this.cantidad;
+          return true;
+        }
+        // console.log(this.miDetalle[i].alimento_id);
+      }
+    }
+    const alimentos = new DetalleAlimento(
       this.cantidad, this.idUnidad, this.unidad, this.receta.id,
       this.alimento, this.idAlimento, this.calorias, 0);
-      this.miDetalle.push(alimentos);
-      this.objetoDetalle = this.miDetalle;
+    this.miDetalle.push(alimentos);
+    this.objetoDetalle = this.miDetalle;
   }
   agregarAlimento() {
     if (this.idAlimento > 0) {

@@ -25,7 +25,7 @@ export class PasienteService {
         swal.fire('Elemento creada exitósamente', '' , 'success');
         return resp.data;
       }), catchError(err => {
-        swal.fire(err.error.mensaje,  'Ha ocurrido un error', 'error');
+        swal.fire(err.error,  'Ha ocurrido un error', 'error');
         return throwError(err);
       }));
 

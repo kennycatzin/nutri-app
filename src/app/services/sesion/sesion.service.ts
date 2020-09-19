@@ -16,7 +16,6 @@ export class SesionService {
               public subirArchivo: SubirArchivoService) { }
 
   guardarSesion(sesion: Sesion) {
-    console.log(sesion);
     const url = URL_SERVICIOS + '/api/sesiones';
     return this.http.post( url, sesion )
   .pipe(map( (resp: any) => {
@@ -26,5 +25,9 @@ export class SesionService {
     swal.fire(err.error.message,  'Ha ocurrido un error, error: ' + err.status, 'error');
     return throwError(err);
   }));
+}
+getInfoSesion(id: number) {
+  const url = URL_SERVICIOS + '/api/sesiones/get-sesion/' + id;
+  return this.http.get(url);
 }
 }

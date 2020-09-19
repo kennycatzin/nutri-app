@@ -1,7 +1,11 @@
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
         <h3 class="text-themecolor">Módulo de sesión</h3>
+        <span *ngIf="sesionID > 0" class="badge badge-danger badge-pill">SESIÓN EXISTENTE</span>
+        <span *ngIf="sesionID == 0" class="badge badge-success badge-pill">NUEVA SESIÓN</span>
+
     </div>
+
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a [routerLink]="['/pasiente']">Pacientes</a></li>
@@ -32,7 +36,7 @@
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Kg. Peso</label>
                                 <div class="input-group">
-                                    <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
+                                    <input [(ngModel)]="sesion.peso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
                                     <span class="input-group-addon" id="basic-addon2">KG</span>
                                 </div>
                             </div>
@@ -83,11 +87,11 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputCity">IMC</label>
-                                <input [(ngModel)]="sesion.imc" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                <input [(ngModel)]="sesion.imc" name="imc" type="number" class="form-control" placeholder="0" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputCity">MM</label>
-                                <input [(ngModel)]="sesion.masa_muscular" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                                <input [(ngModel)]="sesion.masa_muscular" name="masa_muscular" type="number" class="form-control" placeholder="0" required>
                             </div>
                         </div>
                         <hr>
@@ -190,7 +194,7 @@
                         <div class="col-lg-4 col-sm-12">
                             <div class="card ">
                                 <div class="box bg-success text-center ">
-                                    <h1 class="font-light text-white ">{{ this.sesion.gasto_calorico }}</h1>
+                                    <h1 class="font-light text-white ">{{ this.sesion.gasto_calorico_total }}</h1>
                                     <h6 class="text-white ">Gasto calórico total</h6>
                                 </div>
                             </div>
@@ -248,7 +252,7 @@
                     <hr>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Observaciones</label>
-                        <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                        <textarea [(ngModel)]="sesion.notas_dieta" name="notas_dieta" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
                     </div>
                 </div>
             </div>
@@ -265,7 +269,7 @@
                             <div class="col-lg-11 col-md-9 col-sm-8">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Descripción</label>
-                                    <input [(ngModel)]="entrenamiento.notas" name="notas" type="text" class="form-control rounded-3">
+                                    <input [(ngModel)]="entrenamiento.descripcion" name="notas" type="text" class="form-control rounded-3">
                                 </div>
                             </div>
                             <div class="col-lg-1 col-md-3 col-sm-4 form-group">
@@ -289,7 +293,7 @@
                                 <div class="row">
                                     <div class="col-lg-10 col-md-7 col-sm-12 align-self-center">
                                         <h4 class="card-title"> {{diasE.dias}} </h4>
-                                        <h5 class="card-subtitle mb-2 text-muted"> {{diasE.notas}} </h5>
+                                        <h5 class="card-subtitle mb-2 text-muted"> {{diasE.descripcion}} </h5>
                                     </div>
                                     <div class="col-lg-2 col-md-5 col-sm-12 text-left row justify-content-around">
                                         <button (click)="addEntrenamiento(diasE, i)" class="btn btn-outline-success" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-plus-square"></i></button>
@@ -318,7 +322,6 @@
                                         <li *ngFor="let detProg of prog.det_programa" class="list-group-item d-flex justify-content-between align-items-center">
                                             {{detProg.ejercicio}}
                                             <span class="badge badge-primary badge-pill">{{detProg.musculo}}</span>
-
                                         </li>
                                     </ul>
                                 </ul>
@@ -329,7 +332,7 @@
                     <hr>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Observaciones</label>
-                        <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                        <textarea [(ngModel)]="sesion.notas_entrenamiento" name="notas_entrenamiento" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
                     </div>
                 </div>
             </div>
@@ -350,7 +353,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div *ngIf="messageSuccess" class="alert alert-success" role="alert">
+                <div *ngIf="messageSuccess" class="alert alert-success animated fadeIn" role="alert">
                     <a class="alert-link">Elemento agregado</a>. Continue agregando comidas
                 </div>
                 <div class="form-row">
@@ -452,7 +455,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div *ngIf="messageSuccess2" class="alert alert-success" role="alert">
+                <div *ngIf="messageSuccess2" class="alert alert-success animated fadeIn" role="alert">
                     <a class="alert-link">Elemento agregado</a>. Continue agregando ejercicios.
                 </div>
                 <div class="form-row">

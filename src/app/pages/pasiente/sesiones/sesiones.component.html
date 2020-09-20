@@ -14,7 +14,24 @@
         </ol>
     </div>
 </div>
-
+<div class="col-sm-12" *ngIf="cargando">
+    <div class="alert alert-warning text-center">
+        <strong>Cargando</strong>
+        <br>
+        <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+        <br>
+        <span>Espere por favor</span>
+    </div>
+</div>
+<div class="col-sm-12" *ngIf="enviando">
+    <div class="alert alert-success text-center">
+        <strong>Cargando</strong>
+        <br>
+        <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+        <br>
+        <span>Espere por favor el correo se está enviando</span>
+    </div>
+</div>
 <div class="col-lg-12">
     <div class="card">
         <!-- Nav tabs -->
@@ -233,7 +250,7 @@
                                 <div class="row">
                                     <div class="col-lg-7 col-md-12 col-sm-12 align-self-center">
                                         <h5 class="card-title">{{ comida.nombre }}</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">{{ comida.notas }}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ comida.descripcion }}</h6>
                                     </div>
                                     <div class="col-lg-5 col-md-12 col-sm-12 text-lg-right text-sm-center text-md-left">
                                         <button (click)="editarComida(comida, i)" class="btn btn-outline-warning" data-toggle="modal" data-target="#dieta"><i class="fas fa-edit"></i></button>
@@ -337,7 +354,7 @@
                 </div>
             </div>
             <div class="modal-footer ">
-                <button (click)="guardarSesion()" type="submit " class="btn btn-info ">Guardar</button>
+                <button (click)="guardarSesion()" type="submit " class="btn btn-info ">Enviar</button>
             </div>
         </div>
         <!-- </form> -->
@@ -361,7 +378,11 @@
                         <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nombre</label>
-                            <input [(ngModel)]="comida.nombre" name="comidaNombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                            <input [(ngModel)]="comida.nombre" name="comidaNombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese el nombre de la comida" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Descripcion</label>
+                            <input [(ngModel)]="comida.descripcion" name="descripcion" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
                         </div>
                         <div class="form-group">
                             <label for="inputZip">Total calorías</label>

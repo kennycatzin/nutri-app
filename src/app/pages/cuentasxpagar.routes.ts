@@ -9,6 +9,7 @@ import { PerfilComponent } from './pasiente/perfil.component';
 import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
 import { LoginGuardGuard } from './../services/service.index';
 import { RecetasComponent } from './recetas/recetas.component';
+import { ClasificacionesComponent } from './clasificaciones/clasificaciones.component';
 const cuentasRoutes: Routes = [
     {
         path: '',
@@ -21,6 +22,7 @@ const cuentasRoutes: Routes = [
             { path: 'ejercicio', component: EjerciciosComponent },
             { path: 'pasiente', component: PasienteComponent },
             { path: 'receta', component: RecetasComponent },
+            { path: 'clasificacion', component: ClasificacionesComponent },
             { path: 'paciente/perfil/:id', component: PerfilComponent },
             { path: 'paciente/perfil/sesion/:id/:paciente_id', component: SesionesComponent },
 

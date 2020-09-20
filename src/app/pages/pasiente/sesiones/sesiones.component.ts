@@ -98,7 +98,7 @@ export class SesionesComponent implements OnInit {
 
   miComida: Array<Comida> = [];
   objetoComida: Comida[] = [];
-  comida: Comida = new Comida('', 0, '', this.objetoDetalle, 0);
+  comida: Comida = new Comida('', 0, '', '', this.objetoDetalle, 0);
 
   miDieta: Array<Dieta> = [];
   objDieta: Dieta[] = [];
@@ -188,6 +188,8 @@ export class SesionesComponent implements OnInit {
   isOn = true;
 
   cerrar = false;
+  cargando = false;
+  enviando = false;
 
     ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id, paciente_id}) => this.cargarSesion(id, paciente_id));
@@ -324,7 +326,7 @@ export class SesionesComponent implements OnInit {
       this.miComida[this.itemEditar] = this.comida;
     } else {
       const comida = new Comida(
-        this.comida.nombre, this.comida.calorias, this.comida.notas, this.miDetalle, 0);
+        this.comida.nombre, this.comida.calorias, this.comida.notas, this.comida.descripcion, this.miDetalle, 0);
       this.miComida.push(comida);
     }
     this.objetoComida = this.miComida;
@@ -335,7 +337,7 @@ export class SesionesComponent implements OnInit {
     this.messageSuccess = true;
     this.setVisible();
 
-    this.comida = new Comida('', 0, '', [], 0);
+    this.comida = new Comida('', 0, '', '', [], 0);
     this.idAlimento = 0;
     // this.dataSource.data = this.objetoComida;
   }
@@ -396,7 +398,7 @@ delItem(num: number) {
   this.objetoDetalle = this.miDetalle;
   }
   nuevo() {
-    this.comida = new Comida('', 0, '', [], 0);
+    this.comida = new Comida('', 0, '', '', [], 0);
     this.detalle = new DetalleAlimento(0, 0, '', 0, '', 0, 0);
     this.objetoDetalle = [];
     this.miDetalle = [];
@@ -428,12 +430,14 @@ delItem(num: number) {
       // this.objDetPrograma = this.programa.det_programa;
       this.entrenamiento = data.data[0].entrenamiento;
       this.dieta = data.data[0].dieta;
+      this.cargando = false;
     });
   }
   cargarSesion( id: number, pasienteID: number ) {
     this.sesionID = id;
     this.pacienteID = pasienteID;
     if ( id > 0) {
+      this.cargando = true;
       this.traerDatos();
     }
   }
@@ -561,7 +565,7 @@ delItem(num: number) {
 
       this.objEntrenamiento = this.miEntrenamiento;
       console.log(this.objEntrenamiento);
-      this.entrenamiento = new Entrenamiento('', this.entrenamiento.descripcion, [], [], 0);
+      this.entrenamiento = new Entrenamiento('', '', [], [], 0);
       this.miCheck = false;
     }
     borrarDetPrograma(detPrograma: DetPrograma, index: number) {
@@ -690,12 +694,9 @@ delItem(num: number) {
         confirmButtonColor: '#5cb85c',
         cancelButtonColor: '#f0ad4e',
         confirmButtonText: 'Si, Enviar',
-        onAfterClose: () => {
-          swal.showLoading();
-        },
       }).then((result) => {
         if (result.value) {
-          this.cerrar = true;
+          this.enviando = true;
           this.dieta.comidas = this.objetoComida;
           this.programa.det_programa = this.objDetPrograma;
           this.entrenamiento.programa = this.objPrograma;

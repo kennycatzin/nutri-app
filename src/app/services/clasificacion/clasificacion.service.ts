@@ -18,7 +18,7 @@ export class ClasificacionService {
 
 
   getClasificacion( desde: Number = 0) {
-    const url = URL_SERVICIOS + '/api/clasificaciones?desde=' + desde;
+    const url = URL_SERVICIOS + '/api/clasificaciones/paginacion/' + desde;
     return this.http.get(url);
   }
   getClasificacionMuscular( desde: Number = 0) {
@@ -34,7 +34,7 @@ export class ClasificacionService {
     return this.http.get(url);
   }
   crearClasificacion(clasificacion: Clasificacion) {
-    const url = URL_SERVICIOS + '/api/clasificacion';
+    const url = URL_SERVICIOS + '/api/clasificaciones';
     console.log(clasificacion);
     return this.http.post( url, clasificacion )
       .pipe(map( (resp: any) => {
@@ -43,16 +43,17 @@ export class ClasificacionService {
       }));
     }
 
-    borrar(id: string) {
-      const url = URL_SERVICIOS + '/api/clasificacion/' + id;
+    borrar(id: number) {
+      const url = URL_SERVICIOS + '/api/clasificaciones/' + id;
+      console.log(url);
       return this.http.delete(url)
       .pipe(map((resp: any) => {
         swal.fire('Registro eliminado', 'El registro se ha eliminado correctamente', 'success');
         return true;
       }));
     }
-    actualizar(id: string, clasificacion: Clasificacion) {
-      const url = URL_SERVICIOS + '/api/clasificacion' + id;
+    actualizar(id: number, clasificacion: Clasificacion) {
+      const url = URL_SERVICIOS + '/api/clasificaciones/' + id;
       return this.http.put(url, clasificacion)
       .pipe(map((resp: any) => {
         swal.fire('Registro Actualizado', 'El registro se ha actualizado correctamente', 'success');
@@ -62,6 +63,15 @@ export class ClasificacionService {
     getClasificacionID( id: number) {
       const url = URL_SERVICIOS + '/api/clasificaciones/' + id;
       return this.http.get(url);
+    }
+    busqueda( nombre: string ) {
+      const url = URL_SERVICIOS + '/api/clasificaciones/busqueda';
+
+      const busqueda = { busqueda: nombre };
+      return this.http.post( url, busqueda )
+      .pipe(map( (resp: any) => {
+        return resp.data;
+      }));
     }
 }
 

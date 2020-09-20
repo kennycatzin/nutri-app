@@ -21,6 +21,15 @@
         </div>
     </div>
 </div>
+<div class="col-sm-12" *ngIf="cargando">
+    <div class="alert alert-warning text-center">
+        <strong>Cargando</strong>
+        <br>
+        <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+        <br>
+        <span>Espere por favor</span>
+    </div>
+</div>
 <div class="row">
     <!-- .col -->
     <div *ngFor="let obj of objeto; let i = index" class="col-md-6 col-lg-6 col-xlg-4">

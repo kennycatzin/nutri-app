@@ -4,6 +4,7 @@ export class Comida {
         public nombre: string,
         public calorias: number,
         public notas: string,
+        public descripcion: string,
         public det_comidas: DetalleAlimento[],
         public id?: number
     ) {

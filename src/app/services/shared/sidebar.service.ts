@@ -6,6 +6,11 @@ import { Injectable } from '@angular/core';
 export class SidebarService {
   menu: any = [
     {
+      titulo: 'Clasificaciones',
+      icono: 'mdi mdi-chart-bubble',
+      url: '/clasificacion'
+    },
+    {
       titulo: 'Alimentos',
       icono: 'mdi mdi-food-variant',
       url: '/alimento'

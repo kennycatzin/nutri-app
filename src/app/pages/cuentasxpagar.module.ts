@@ -22,6 +22,7 @@ import { EjerciciosComponent } from './ejercicios/ejercicios.component';
 import { PerfilComponent } from './pasiente/perfil.component';
 import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
 import { RecetasComponent } from './recetas/recetas.component';
+import { ClasificacionesComponent } from './clasificaciones/clasificaciones.component';
 
 
 
@@ -39,6 +40,7 @@ import { RecetasComponent } from './recetas/recetas.component';
     PerfilComponent,
     SesionesComponent,
     RecetasComponent,
+    ClasificacionesComponent,
 
   ],
   imports: [

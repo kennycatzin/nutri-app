@@ -27,7 +27,7 @@ export class EjerciciosComponent implements OnInit {
   getClaisificaciones() {
     this.clasificacionService.getClasificacionMuscular()
     .subscribe( (data: any) => {
-    this.clasificaciones = data.data;
+      this.clasificaciones = data.data;
     });
   }
 
@@ -52,7 +52,6 @@ export class EjerciciosComponent implements OnInit {
     this.ejercicio = new Ejercicio('', 0, '', '', 0);
   }
   actulizar(ejercicio: Ejercicio) {
-    console.log(ejercicio);
     this.ejercicio = ejercicio;
     // this.alimentoService.actualizar(this.alimento.id, this.alimento)
     // .subscribe( objeto => {
@@ -65,17 +64,14 @@ guardarCatalogo(f: NgForm) {
   if ( f.invalid ) {
     return;
   }
-  console.log(this.ejercicio);
   if (this.ejercicio.id) {
     this.ejercicioService.actualizar(this.ejercicio.id, this.ejercicio)
     .subscribe( objeto => {
-      console.log(objeto);
       this.traerDatos();
     });
   } else {
     this.ejercicioService.crearElemento( this.ejercicio )
     .subscribe( objeto => {
-      console.log(objeto);
       this.traerDatos();
     });
   }
@@ -85,9 +81,7 @@ traerDatos() {
   this.cargando = true;
   this.ejercicioService.getElementoPaginacion(this.desde)
   .subscribe( (data: any) => {
-    console.log(data);
     this.objeto = data.data;
-    console.log(this.objeto);
     this.totalRegistros = data.numero;
     this.cargando = false;
   });

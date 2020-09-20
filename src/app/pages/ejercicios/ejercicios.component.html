@@ -91,15 +91,18 @@
                         <label for="exampleInputEmail1">Nombre</label>
                         <input [(ngModel)]="ejercicio.nombre" type="text" class="form-control" name="nombre" aria-describedby="emailHelp" placeholder="Ingrese el nombre" required>
                     </div>
+                    <!-- ERROR -->
                     <div class="form-group">
                         <label for="exampleInputEmail1">Clasificación</label>
-                        <select [(ngModel)]="ejercicio.clasificacion_id" name="coach" class="form-control">
+                        <select [(ngModel)]="ejercicio.clasificacion_id" name="clasificacion" class="form-control">
                             <option selected>SELECCIONE UNA CLASIFICACIÔN</option>
                             <option *ngFor="let clasificacion of clasificaciones" [value]="clasificacion.id">
                                 {{clasificacion.nombre}}
                             </option> 
                         </select>
                     </div>
+
+
                     <div class="form-group">
                         <label for="exampleInputEmail1">Descripción</label>
                         <textarea [(ngModel)]="ejercicio.descripcion" name="descripcion" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>

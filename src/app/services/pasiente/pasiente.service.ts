@@ -5,20 +5,22 @@ import { Observable, throwError } from 'rxjs';
 import swal from 'sweetalert2';
 import { Pasiente } from '../../models/pasiente.model';
 import { URL_SERVICIOS } from 'src/config/config';
+import { SubirArchivoService } from '../archivos/subir-archivo.service';
 @Injectable({
   providedIn: 'root'
 })
 export class PasienteService {
   pasiente: Pasiente;
   token: string;
-  constructor(public http: HttpClient) { }
-  getPasientesPaginacion( desde: Number = 0) {
-    let url = URL_SERVICIOS + '/api/pasientes/paginacion/' + desde;
+  constructor(public http: HttpClient,
+              public subirArchivo: SubirArchivoService) { }
+  getPasientesPaginacion( desde: number = 0) {
+    const url = URL_SERVICIOS + '/api/pasientes/paginacion/' + desde;
     return this.http.get(url);
   }
 
   crearPasientes(pasiente: Pasiente) {
-    let url = URL_SERVICIOS + '/api/pasientes';
+    const url = URL_SERVICIOS + '/api/pasientes';
     console.log(pasiente);
     return this.http.post( url, pasiente )
       .pipe(map( (resp: any) => {
@@ -30,9 +32,19 @@ export class PasienteService {
       }));
 
     }
-
+    cambiarImagen(archivo: File, id: number) {
+      this.subirArchivo.subirArchivo(archivo, 'paciente', id)
+      .then( (resp: any) => {
+        console.log(resp);
+        swal.fire('Operación exitosa', '' + resp.mensaje + '', 'success');
+      })
+      .catch( (resp: any) => {
+        console.log(resp);
+        swal.fire('Operación correcta', '', 'success');
+      });
+    }
     borrar(id: number) {
-      let url = URL_SERVICIOS + '/api/pasientes/' + id;
+      const url = URL_SERVICIOS + '/api/pasientes/' + id;
       return this.http.delete(url)
       .pipe(map((resp: any) => {
         swal.fire('Registro eliminado', 'El registro se ha eliminado correctamente', 'success');
@@ -40,7 +52,7 @@ export class PasienteService {
       }));
     }
     actualizar(id: number, pasiente: Pasiente) {
-      let url = URL_SERVICIOS + '/api/pasientes/' + id;
+      const url = URL_SERVICIOS + '/api/pasientes/' + id;
       return this.http.put(url, pasiente)
       .pipe(map((resp: any) => {
         swal.fire('Registro Actualizado', 'El registro se ha actualizado correctamente', 'success');
@@ -48,7 +60,7 @@ export class PasienteService {
       }));
     }
     busqueda( nombre: string ) {
-      let url = URL_SERVICIOS + '/api/pasientes/busqueda';
+      const url = URL_SERVICIOS + '/api/pasientes/busqueda';
       const busqueda = { busqueda: nombre };
       return this.http.post( url, busqueda )
       .pipe(map( (resp: any) => {

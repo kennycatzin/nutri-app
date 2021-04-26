@@ -10,16 +10,22 @@ import { UnidadService } from '../../services/unidad/unidad.service';
 import { AlimentoService } from 'src/app/services/alimento/alimento.service';
 import { Unidad } from '../../models/unidad.model';
 import { Alimento } from 'src/app/models/alimento.model';
+
+import { DomSanitizer } from '@angular/platform-browser';
+import { URL_SERVICIOS } from 'src/config/config';
+
 @Component({
   selector: 'app-recetas',
   templateUrl: './recetas.component.html',
   styleUrls: ['./recetas.component.css']
 })
 export class RecetasComponent implements OnInit {
-  constructor(public recetaService: RecetaService,
+  constructor(private domSanitizer: DomSanitizer,
+              public recetaService: RecetaService,
               public clasificacionService: ClasificacionService,
               public unidadService: UnidadService,
               public alimentoService: AlimentoService) { }
+
 miDetalle: Array<DetalleAlimento> = [];
 objetoDetalle: DetalleAlimento[] = [];
 detalle: DetalleAlimento = new DetalleAlimento(0, 0, '', 0, '', 0, 0);
@@ -27,6 +33,11 @@ receta: Receta = new Receta('', '', 0, '', 0, '', '', '', this.objetoDetalle, 0)
 cargando = false;
 desde = 0;
 objeto: Receta[];
+imagenSubir: File;
+imagenTemp: string;
+recetaModify: Receta;
+recetaId = 0;
+
 
 totalRegistros = 0;
 clasificaciones: Clasificacion;
@@ -141,6 +152,7 @@ sumCalorias = 0;
       console.log(this.objeto);
       this.totalRegistros = data.numero;
       this.cargando = false;
+      this.imagenTemp = '';
     });
   }
   busqueda(termino: string) {
@@ -260,4 +272,27 @@ sumCalorias = 0;
         }
       });
     }
+    hola(obj: any) {
+      this.recetaModify = obj;
+      this.recetaId = obj.id;
+    }
+    seleccionImagen(  archivo: File ) {
+      if (!archivo) {
+        this.imagenSubir = null;
+        return;
+      }
+      if (archivo.type.indexOf('image') < 0) {
+        swal.fire('Solo imágenes', 'El archivo seleccionado debe ser una imagen', 'error');
+        this.imagenSubir = null;
+        return;
+      }
+      this.imagenSubir = archivo;
+      const reader = new FileReader();
+      const urlImagenTemp = reader.readAsDataURL( archivo );
+      reader.onloadend = () => this.imagenTemp = reader.result as string;
+    }
+    cambiarImagen() {
+      this.recetaService.cambiarImagen(this.imagenSubir, this.recetaId);
+      this.traerDatos();
+   }
 }

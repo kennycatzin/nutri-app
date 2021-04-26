@@ -25,7 +25,7 @@
     <div class="alert alert-warning text-center">
         <strong>Cargando</strong>
         <br>
-        <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+        <i class="fas fa-stroopwafel fa-spin"></i>
         <br>
         <span>Espere por favor</span>
     </div>
@@ -36,7 +36,7 @@
         <div class="card card-body">
             <div class="row">
                 <div class="col-md-4 col-lg-3 text-center">
-                    <a><img src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png" alt="user" class="img-circle img-responsive"></a>
+                    <a><img src="{{ obj.imagen | imagen: 'paciente' }}" data-toggle="modal" data-target="#cargaImagenes" (click)="hola(obj)" alt="user" class="img-circle img-responsive"></a>
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <h4 class="box-title m-b-0">{{obj.nombres}} {{obj.apellidopaterno}} {{obj.apellidomaterno}}</h4> <small>{{obj.correo}}</small>
@@ -148,6 +148,36 @@
                 </div>
             </form>
 
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cargaImagenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="car-body text-center">
+                            <h4 class="card-title">Fotografía del paciente</h4>
+                            <h6 class="card-subtitle">{{pacienteModify?.nombres}}</h6>
+                            <img *ngIf="!imagenTemp" class="w150 img-responsive" [src]="pacienteModify?.imagen | imagen" alt="">
+                            <img *ngIf="imagenTemp" class="w150 img-responsive" [src]="imagenTemp" alt="">
+                            <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="traerDatos()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-success">Guardar</button>
+            </div>
         </div>
     </div>
 </div>

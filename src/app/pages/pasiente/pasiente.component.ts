@@ -4,6 +4,7 @@ import { Pasiente } from './../../models/pasiente.model';
 import { NgForm } from '@angular/forms';
 import { Clasificacion } from '../../models/clasificacion.model';
 import { ClasificacionService } from '../../services/clasificacion/clasificacion.service';
+import { URL_SERVICIOS } from 'src/config/config';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-pasiente',
@@ -18,8 +19,13 @@ export class PasienteComponent implements OnInit {
     cargando = false;
     desde = 0;
     objeto: any[];
+    imagenSubir: File;
+    pacienteId = 0;
     totalRegistros = 0;
     clasificaciones: Clasificacion[];
+    imagenTemp: string;
+    pacienteModify: Pasiente;
+
   ngOnInit() {
     this.getClaisificaciones();
     this.traerDatos();
@@ -80,6 +86,10 @@ guardarCatalogo(f: NgForm) {
     });
   }
 }
+ cambiarImagen() {
+   this.pasienteService.cambiarImagen(this.imagenSubir, this.pacienteId);
+   this.traerDatos();
+}
 traerDatos() {
   this.cargando = true;
   this.pasienteService.getPasientesPaginacion(this.desde)
@@ -90,7 +100,30 @@ traerDatos() {
     this.totalRegistros = data.numero;
     this.cargando = false;
     this.pasiente = new Pasiente('', '', '', '', '', 0, '', '', '', 0);
+    this.imagenTemp = '';
+
   });
+}
+hola(obj: any) {
+  this.pacienteModify = obj;
+  this.pacienteId = obj.id;
+}
+seleccionImagen(  archivo: File ) {
+  if (!archivo) {
+    this.imagenSubir = null;
+    return;
+  }
+  if (archivo.type.indexOf('image') < 0) {
+    swal.fire('Solo imágenes', 'El archivo seleccionado debe ser una imagen', 'error');
+    this.imagenSubir = null;
+    return;
+  }
+  this.imagenSubir = archivo;
+
+  const reader = new FileReader();
+  const urlImagenTemp = reader.readAsDataURL( archivo );
+  reader.onloadend = () => this.imagenTemp = reader.result as string;
+
 }
 busqueda(termino: string) {
   if (termino === '') {

@@ -9,7 +9,7 @@ export class SubirArchivoService {
 
   constructor() { }
 
-  subirArchivo( archivo: File, tipo: string, id: string) {
+  subirArchivo( archivo: File, tipo: string, id: number) {
     return new Promise((resolve, reject) => {
     const formData = new FormData();
     const xhr = new XMLHttpRequest();
@@ -26,8 +26,9 @@ export class SubirArchivoService {
         }
       }
     };
-    const url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
-    xhr.open('PUT', url, true);
+    const url = URL_SERVICIOS + '/api/imagen/file-upload/' + tipo + '/' + id;
+    console.log(url);
+    xhr.open('POST', url, true);
     xhr.send(formData);
     });
   }

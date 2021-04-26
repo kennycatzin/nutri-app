@@ -60,13 +60,14 @@ export class RecetaService {
         const url = URL_SERVICIOS + '/api/recetas/get-info-receta/' + id;
         return this.http.get(url);
     }
-    subirImagen(archivo: File, id: string) {
-        this.subirArchivo.subirArchivo(archivo, 'coaches', id)
+
+      cambiarImagen(archivo: File, id: number) {
+        this.subirArchivo.subirArchivo(archivo, 'receta', id)
         .then( (resp: any) => {
           swal.fire('Operación exitosa', '' + resp.mensaje + '', 'success');
         })
         .catch( (resp: any) => {
-          swal.fire('Operación con errores', '' + resp.mensaje + '', 'info');
+          swal.fire('Operación correcta', '', 'success');
         });
       }
 }
